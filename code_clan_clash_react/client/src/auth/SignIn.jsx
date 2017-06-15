@@ -1,4 +1,5 @@
 import React from 'react'
+import EightBitMan from "./EightBitMan"
 
 class SignIn extends React.Component {
 
@@ -63,7 +64,7 @@ class SignIn extends React.Component {
         <input type="text" onChange={this.handleOnChangeEmail}  placeholder="Email" />
         <input type="password" onChange={this.handleOnChangePassword}  placeholder="Password" />
         <button onClick={this.signIn}>  Sign In </button>
-        {this.state.eightBitMan ? <h4>{this.state.eightBitMan}</h4> : null }
+        {this.state.eightBitMan ? <EightBitMan speech={this.state.eightBitMan}/> : null }
       </form>
       
     )

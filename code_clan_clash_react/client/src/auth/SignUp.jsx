@@ -1,4 +1,5 @@
 import React from 'react'
+import EightBitMan from './EightBitMan'
 
 class SignUp extends React.Component {
 
@@ -14,7 +15,7 @@ class SignUp extends React.Component {
       password:"", 
       passwordConfirmation:"",
       userName:"",
-      eightBitMan: null
+      eightBitMan: null,
     }
   }
 
@@ -50,6 +51,8 @@ class SignUp extends React.Component {
         request2.send(JSON.stringify(data2));
       }
       if (request.status === 422){
+        console.log(request.response)
+        
         this.setState({eightBitMan: request.responseText})
       }
     }
@@ -84,7 +87,7 @@ class SignUp extends React.Component {
   }
 
   handleVictory(event){
-    this.setState({userName: event.target.value})
+    
   }
 
   handleDefeat(event){
@@ -103,7 +106,7 @@ class SignUp extends React.Component {
 
         <button onClick={this.signUp}>  Sign Up </button>
 
-        {this.state.eightBitMan ? <h4>{this.state.eightBitMan}</h4> : null }
+        {this.state.eightBitMan ? <EightBitMan speech={this.state.eightBitMan} errors={this.state.eightBitMan} /> : null }
 
       </form>
     )
