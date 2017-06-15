@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  username: MyString
+  victory: MyString
+  defeat: MyString
+  wpm: 1
+  user_id: 
+
+two:
+  username: MyString
+  victory: MyString
+  defeat: MyString
+  wpm: 1
+  user_id: 

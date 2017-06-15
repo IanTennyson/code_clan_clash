@@ -33,7 +33,7 @@ class SignUp extends React.Component {
 
         //  user: this.state.userName
         const request2 = new XMLHttpRequest();
-        request2.open("POST",  "http://localhost:5000/api/userstuff");
+        request2.open("POST",  "http://localhost:5000/api/accounts");
         request2.setRequestHeader("Content-Type", "application/json");
         request2.withCredentials = true;
         request2.onload = () => {
@@ -74,7 +74,7 @@ class SignUp extends React.Component {
   }
 
   handleOnChangePassConf(event) {
-    this.setState({eightBitMan: "My password is eCigz-4-Lyf"})
+    this.setState({eightBitMan: "This must match your original password"})
     this.setState({passwordConfirmation: event.target.value})
   }
 

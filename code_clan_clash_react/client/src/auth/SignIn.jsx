@@ -9,7 +9,8 @@ class SignIn extends React.Component {
     this.signIn = this.signIn.bind(this)
     this.state = {
       email:"", 
-      password:""
+      password:"",
+      eightBitMan: null
     }
   }
 
@@ -35,6 +36,11 @@ class SignIn extends React.Component {
       if(request.status === 201){
         const user = JSON.parse(request.responseText);
         this.props.onSignIn(user);
+      }
+
+      if(request.status === 401){
+        this.setState({eightBitMan: request.responseText})
+        console.log("response",request.responseText)
       }
     }
     const data = {

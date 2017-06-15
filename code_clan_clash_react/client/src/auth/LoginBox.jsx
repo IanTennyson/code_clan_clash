@@ -30,8 +30,10 @@ class LoginBox extends React.Component {
     request.onload = () => {
       if(request.status === 200){
         console.log('request.responseText', request.responseText)
-        console.log('Om Nom Nom')
+        console.log('Found a cookie')
         const receivedUser = JSON.parse(request.responseText);
+
+        console.log("My Recieved User",receivedUser)
 
         receivedUser.userName = receivedUser.user_details[0].username;
 
@@ -80,6 +82,8 @@ class LoginBox extends React.Component {
       if(this.state.currentUser){
         mainDiv = <div>
           <h4> Welcome {this.state.currentUser.userName}</h4>
+
+
           <SignOut url={this.props.url + "users/sign_out.json"} onSignOut={this.setUser}></SignOut>
         </div>
       }
