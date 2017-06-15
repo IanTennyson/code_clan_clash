@@ -42,6 +42,11 @@ class SignIn extends React.Component {
         this.setState({eightBitMan: request.responseText})
         console.log("response",request.responseText)
       }
+
+      if(request.status === 422){
+        this.setState({eightBitMan: request.responseText})
+      }
+
     }
     const data = {
       user: {
@@ -58,7 +63,9 @@ class SignIn extends React.Component {
         <input type="text" onChange={this.handleOnChangeEmail}  placeholder="Email" />
         <input type="password" onChange={this.handleOnChangePassword}  placeholder="Password" />
         <button onClick={this.signIn}>  Sign In </button>
+        {this.state.eightBitMan ? <h4>{this.state.eightBitMan}</h4> : null }
       </form>
+      
     )
   }
 }

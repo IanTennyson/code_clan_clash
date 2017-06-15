@@ -8,7 +8,7 @@ class SignUp extends React.Component {
     this.handleOnChangeEmail = this.handleOnChangeEmail.bind(this)
     this.handleOnChangePassword = this.handleOnChangePassword.bind(this)
     this.handleOnChangePassConf = this.handleOnChangePassConf.bind(this)
-    this.handleOnChangeUsername = this.handleOnChangeUsername.bind(this)
+    this.handleUsername = this.handleUsername.bind(this)
     this.state = {
       email:"", 
       password:"", 
@@ -39,6 +39,7 @@ class SignUp extends React.Component {
         request2.onload = () => {
             user.userName = this.state.userName;
             this.props.onSignUp(user)
+            console.log("user after 2nd post request", user);
         }
 
         const data2 = {
@@ -49,7 +50,6 @@ class SignUp extends React.Component {
         request2.send(JSON.stringify(data2));
       }
       if (request.status === 422){
-        console.log("Console Log Error Msg: ", request.responseText)
         this.setState({eightBitMan: request.responseText})
       }
     }
@@ -78,9 +78,17 @@ class SignUp extends React.Component {
     this.setState({passwordConfirmation: event.target.value})
   }
 
-  handleOnChangeUsername(event){
+  handleUsername(event){
     this.setState({eightBitMan: "Keep your username clean please!"})
     this.setState({userName: event.target.value})
+  }
+
+  handleVictory(event){
+    this.setState({userName: event.target.value})
+  }
+
+  handleDefeat(event){
+    
   }
   
   render() {
@@ -89,7 +97,9 @@ class SignUp extends React.Component {
         <input type="text" onChange={this.handleOnChangeEmail}  placeholder="Email" />
         <input type="password" onChange={this.handleOnChangePassword}  placeholder="Password" />
         <input type="password" onChange={this.handleOnChangePassConf}  placeholder="Password Confirmation" />
-        <input type="username" onChange={this.handleOnChangeUsername}  placeholder="Enter your Username" />
+        <input type="username" onChange={this.handleUsername}  placeholder="Enter your Username" />
+        <input type="victory" onChange={this.handleVictory}  placeholder="Enter your Victory Msg" />
+        <input type="defeat" onChange={this.handleDefeat}  placeholder="Enter your Defeat Msg" />
 
         <button onClick={this.signUp}>  Sign Up </button>
 

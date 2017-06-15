@@ -11,15 +11,18 @@ class LoginBox extends React.Component {
     this.state = {
       showSignIn: false,
       showSignUp: false,
-      currentUser: null
+      currentUser: null,
+      username: null
     }
     this.displaySignIn = this.displaySignIn.bind(this);
     this.displaySignUp = this.displaySignUp.bind(this);
   }
 
   setUser(user){
-    console.log("user :", user)
+    console.log("user before set:", this.state.currentUser)
     this.setState({currentUser:user})
+    console.log("user after set:", this.state.currentUser)
+
   }
 
   fetchUser(){
@@ -34,8 +37,10 @@ class LoginBox extends React.Component {
         const receivedUser = JSON.parse(request.responseText);
 
         console.log("My Recieved User",receivedUser)
+        console.log("My Recieved User.user_detail", receivedUser.user_details[0])
 
         receivedUser.userName = receivedUser.user_details[0].username;
+        this.setState({username: receivedUser.userName})
 
         this.setUser(receivedUser)
       }else if (request.status === 401) {
