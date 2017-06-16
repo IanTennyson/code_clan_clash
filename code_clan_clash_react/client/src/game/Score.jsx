@@ -2,8 +2,11 @@ STATE
 wordsArray: ["One", "Two", "Three"],
 //the current word split eg. ["o","n","e"]
 charArray: [],
+//From the wordsArray this will be the current word to type
 currentWord: null,
+//The index of the current word in the array
 currentWordIndex: 0,
+//The index of the current letter in the char array
 charLetterIndex: 0,
 
 //oldUserWords hold the words the user has previsouly typed both correct and incorrect ["one", "twwo"]
@@ -11,8 +14,9 @@ oldUserWords: [],
 //usersCurrentWordAttempt holds the users attempt to reproduce the currentWord
 usersCurrentWordAttempt: "",
 
-gameStarted: false
 // gameStarted will need to tell the clock to start
+gameStarted: false
+
 
 
 

@@ -20,8 +20,13 @@ class GameBox extends React.Component {
     this.newUserInput = this.newUserInput.bind(this)
   }
 
-  newUserInput(){
-    console.log("GAME BOX NEW USER INPUT")
+  newUserInput(usersInput){
+    console.log("usersInput", usersInput)
+    if(usersInput === " "){
+      this.state.currentWordIndex++
+      
+    }
+
   }
 
   render(){

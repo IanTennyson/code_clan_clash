@@ -1,5 +1,18 @@
 import React from 'react'
 
-const userInput = (props) => <input className="user-input-box" placeholder="Type to begin" onKeyUp={props.callback.bind(this)}></input>
+class UserInput extends React.Component {
 
-export default userInput
+  render(){
+    return(
+      <input className="user-input-box" placeholder="Type to begin" onKeyUp={this.triggerInput.bind(this)}></input>
+    )
+  }
+
+  triggerInput(event){
+    const newChar = event.target.value.slice(-1)
+    this.props.callback(newChar)
+  }
+
+}
+
+export default UserInput

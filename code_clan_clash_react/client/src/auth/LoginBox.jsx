@@ -22,25 +22,25 @@ class LoginBox extends React.Component {
   }
 
   setUser(user){
-    console.log("user before set:", this.state.currentUser)
+    // console.log("user before set:", this.state.currentUser)
     this.setState({currentUser:user})
-    console.log("user after set:", this.state.currentUser)
+    // console.log("user after set:", this.state.currentUser)
 
   }
 
   fetchUser(){
-    console.log('Checking if user has a cookie!');
+    // console.log('Checking if user has a cookie!');
     const request = new XMLHttpRequest();
     request.open("GET", this.props.url + "users.json");
     request.withCredentials = true;
     request.onload = () => {
       if(request.status === 200){
-        console.log('request.responseText', request.responseText)
-        console.log('Found a cookie')
+        // console.log('request.responseText', request.responseText)
+        // console.log('Found a cookie')
         const receivedUser = JSON.parse(request.responseText);
 
-        console.log("My Recieved User",receivedUser)
-        console.log("My Recieved User.user_detail", receivedUser.user_details[0])
+        // console.log("My Recieved User",receivedUser)
+        // console.log("My Recieved User.user_detail", receivedUser.user_details[0])
 
         receivedUser.userName = receivedUser.user_details[0].username;
         this.setState({username: receivedUser.userName})
@@ -55,7 +55,7 @@ class LoginBox extends React.Component {
   }
 
   componentDidMount(){
-    console.log("componentDidMount")
+    // console.log("componentDidMount")
     this.fetchUser()
   }
 
