@@ -39,19 +39,20 @@ class GameBox extends React.Component {
       this.submitFinishedWord(usersInput);
       this.state.currentWordIndex++
       this.setCurrentWord();
+      return;
     }
     //USER HAS CORRECTLY TYPED THE DESIRED LETTER
     if(usersInput === this.state.gameCharArray[this.state.gameCharLetterIndex]){
       console.log(usersInput, " === ", this.state.gameCharArray[this.state.gameCharLetterIndex])
       this.state.gameCharLetterIndex++
       this.state.userCharArray.push(usersInput)
-    }else if (usersInput !== this.state.gameCharArray[this.state.gameCharLetterIndex]){
+      return;
+    }else if //USER HAS TYPED THE WRONG CHARACTER
+    (usersInput !== this.state.gameCharArray[this.state.gameCharLetterIndex]){
       this.state.gameCharLetterIndex++
       this.state.userCharArray.push(usersInput)
+      return;
     }
-    console.log("gameCharLetterIndex", this.state.gameCharLetterIndex)
-    //USER HAS TYPED THE WRONG CHARACTER
-
 
   }
 
@@ -59,7 +60,6 @@ class GameBox extends React.Component {
     this.state.currentWord = this.state.wordsArray[this.state.currentWordIndex]
     // console.log("CURRENT WORD", this.state.currentWord)
     this.state.gameCharArray = this.state.currentWord.split("")
-    console.log("gameCharArray", this.state.gameCharArray)
   }
 
   addToCharArray(userInput){
@@ -69,7 +69,7 @@ class GameBox extends React.Component {
 
   submitFinishedWord(){
     const usersCompletedWord = this.state.userCharArray.join("")
-    console.log("usersCompletedWord", usersCompletedWord)
+    console.log("User Current Word", usersCompletedWord)
     console.log("Game Current Word",this.state.currentWord)
     if(usersCompletedWord === this.state.currentWord){
       //NEED TO FIGURE OUT HOW TO SET THE CLASS OF THE SPAN!
