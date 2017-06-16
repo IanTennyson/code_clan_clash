@@ -34,17 +34,25 @@ class GameBox extends React.Component {
 
   newUserInput(usersInput){
     console.log("usersInput", usersInput)
+    //USER HAS TYPED A SPACE
     if(usersInput === " "){
+      this.submitFinishedWord(usersInput);
       this.state.currentWordIndex++
       this.setCurrentWord();
-      this.submitFinishedWord(usersInput);
     }
-    // console.log("USERS INPUT", usersInput)
-    // console.log("LOGIC", this.state.gameCharArray[this.state.gameCharLetterIndex])
+    //USER HAS CORRECTLY TYPED THE DESIRED LETTER
     if(usersInput === this.state.gameCharArray[this.state.gameCharLetterIndex]){
       console.log(usersInput, " === ", this.state.gameCharArray[this.state.gameCharLetterIndex])
       this.state.gameCharLetterIndex++
+      this.state.userCharArray.push(usersInput)
+    }else if (usersInput !== this.state.gameCharArray[this.state.gameCharLetterIndex]){
+      this.state.gameCharLetterIndex++
+      this.state.userCharArray.push(usersInput)
     }
+    console.log("gameCharLetterIndex", this.state.gameCharLetterIndex)
+    //USER HAS TYPED THE WRONG CHARACTER
+
+
   }
 
   setCurrentWord(){
@@ -61,6 +69,8 @@ class GameBox extends React.Component {
 
   submitFinishedWord(){
     const usersCompletedWord = this.state.userCharArray.join("")
+    console.log("usersCompletedWord", usersCompletedWord)
+    console.log("Game Current Word",this.state.currentWord)
     if(usersCompletedWord === this.state.currentWord){
       //NEED TO FIGURE OUT HOW TO SET THE CLASS OF THE SPAN!
       //SET SPAN CLASS TO CORRECT
