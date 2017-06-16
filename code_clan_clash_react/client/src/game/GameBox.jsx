@@ -8,19 +8,21 @@ class GameBox extends React.Component {
   constructor(props){
     super(props);
     this.state = {
-      wordsArray: ["Ruby", "Java", "JavaScript", "Python"],
-      charArray: [],
-      currentWord: "Ruby",
+      //GAME STATE
+      wordsArray: ["ruby", "java", "javascript", "python"],
       currentWordIndex: 0,
-      charLetterIndex: 0,
+      currentWord: "ruby",
+      gameCharArray: ["r", "u", "b", "y"],
+      gameCharLetterIndex: 0,
+      gameStarted: false,
+      //USER STATE
+      userCharArray: [],
       oldUserWords: [],
-      // usersCurrentWordAttempt: "", think this is redundant because of charArray.join("") 
-      gameStarted: false
     }
     this.newUserInput = this.newUserInput.bind(this)
     this.setCurrentWord = this.setCurrentWord.bind(this)
     this.addToCharArray = this.addToCharArray.bind(this)
-    this.finishCharArray = this.finishCharArray.bind(this)
+    this.submitFinishedWord = this.submitFinishedWord.bind(this)
 
   }
 
@@ -35,23 +37,41 @@ class GameBox extends React.Component {
     if(usersInput === " "){
       this.state.currentWordIndex++
       this.setCurrentWord();
-      this.finishCharArray(usersInput);
+      this.submitFinishedWord(usersInput);
+    }
+    // console.log("USERS INPUT", usersInput)
+    // console.log("LOGIC", this.state.gameCharArray[this.state.gameCharLetterIndex])
+    if(usersInput === this.state.gameCharArray[this.state.gameCharLetterIndex]){
+      console.log(usersInput, " === ", this.state.gameCharArray[this.state.gameCharLetterIndex])
+      this.state.gameCharLetterIndex++
     }
   }
 
   setCurrentWord(){
-    this.setState({currentWord: this.state.wordsArray[this.state.currentWordIndex]})
+    this.state.currentWord = this.state.wordsArray[this.state.currentWordIndex]
     // console.log("CURRENT WORD", this.state.currentWord)
+    this.state.gameCharArray = this.state.currentWord.split("")
+    console.log("gameCharArray", this.state.gameCharArray)
   }
 
   addToCharArray(userInput){
-    this.state.charArray.push(usersInput)
-    console.log("NEW CHAR ARRAY",this.state.charArray)
+    this.state.userCharArray.push(usersInput)
+    console.log("NEW CHAR ARRAY",this.state.userCharArray)
   }
 
-  finishCharArray(){
-
-    this.state.charArray = []
+  submitFinishedWord(){
+    const usersCompletedWord = this.state.userCharArray.join("")
+    if(usersCompletedWord === this.state.currentWord){
+      //NEED TO FIGURE OUT HOW TO SET THE CLASS OF THE SPAN!
+      //SET SPAN CLASS TO CORRECT
+      console.log("CORRECT!")
+    }else{
+      //SET SPAN CLASS TO INCORRECT
+      console.log("WRONG!")
+    }
+    this.state.gameCharLetterIndex = 0
+    this.state.oldUserWords.push(usersCompletedWord)
+    this.state.userCharArray = []
   }
 
   render(){
