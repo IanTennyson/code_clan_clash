@@ -11,17 +11,15 @@ class SignIn extends React.Component {
     this.state = {
       email:"", 
       password:"",
-      eightBitMan: null
+      eightBitManError: null
     }
   }
 
   handleOnChangeEmail(event) {
-    console.log(event.target.value)
     this.setState({email: event.target.value})
   }
 
   handleOnChangePassword(event) {
-    console.log(event.target.value)
     this.setState({password: event.target.value})
   }
 
@@ -40,12 +38,12 @@ class SignIn extends React.Component {
       }
 
       if(request.status === 401){
-        this.setState({eightBitMan: request.responseText})
         console.log("response",request.responseText)
       }
 
       if(request.status === 422){
-        this.setState({eightBitMan: request.responseText})
+        console.log("request.response", request.response)
+        this.setState({eightBitManError: request.response})
       }
 
     }
@@ -64,7 +62,8 @@ class SignIn extends React.Component {
         <input type="text" onChange={this.handleOnChangeEmail}  placeholder="Email" />
         <input type="password" onChange={this.handleOnChangePassword}  placeholder="Password" />
         <button onClick={this.signIn}>  Sign In </button>
-        {this.state.eightBitMan ? <EightBitMan speech={this.state.eightBitMan}/> : null }
+        {this.state.eightBitManError ? <EightBitMan error={this.state.eightBitManError} /> : null }
+
       </form>
       
     )

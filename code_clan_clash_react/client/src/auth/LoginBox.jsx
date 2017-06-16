@@ -2,6 +2,7 @@ import React from 'react'
 import SignIn from './SignIn'
 import SignUp from './SignUp' 
 import SignOut from './SignOut'
+import CodeClanClash from '../components/CodeClanClash'
 
 class LoginBox extends React.Component {
 
@@ -12,10 +13,12 @@ class LoginBox extends React.Component {
       showSignIn: false,
       showSignUp: false,
       currentUser: null,
-      username: null
+      username: null,
+      clash: false
     }
     this.displaySignIn = this.displaySignIn.bind(this);
     this.displaySignUp = this.displaySignUp.bind(this);
+    this.clashButton = this.clashButton.bind(this);
   }
 
   setUser(user){
@@ -70,33 +73,41 @@ class LoginBox extends React.Component {
     });
   }
 
+  clashButton(){
+    this.setState({clash: true});
+  }
+
   render () {
-      var mainDiv = <div>
-        <button onClick={this.displaySignIn}>Sign In</button>
-        <button onClick={this.displaySignUp}>Sign Up</button>
+//No user signed in
+var mainDiv = <div className="log-in">
+  <button onClick={this.displaySignIn}>Sign In</button>
+  <button onClick={this.displaySignUp}>Sign Up</button>
+    {this.state.showSignIn ?
+      <SignIn url={this.props.url + "users/sign_in.json"} onSignIn={this.setUser}></SignIn> : null }
 
-        {this.state.showSignIn ?
-                  <SignIn url={this.props.url + "users/sign_in.json"} onSignIn={this.setUser}></SignIn>  :
-                   null
-                }
-
-        {this.state.showSignUp ? <SignUp url={this.props.url + "users.json"} onSignUp={this.setUser}></SignUp> : null }
-
+    {this.state.showSignUp ? <SignUp url={this.props.url + "users.json"} onSignUp={this.setUser}></SignUp> : null }
       </div>
-
-      if(this.state.currentUser){
-        mainDiv = <div>
-          <h4> Welcome {this.state.currentUser.userName}</h4>
-
-
-          <SignOut url={this.props.url + "users/sign_out.json"} onSignOut={this.setUser}></SignOut>
-        </div>
+//User is signed in on NAV page
+  if(this.state.currentUser){
+    mainDiv = <div className="nav-page">
+    <h4> Welcome {this.state.currentUser.userName}</h4>
+    <button className="clash-button" onClick={this.clashButton}>Clash</button>
+    <SignOut url={this.props.url + "users/sign_out.json"} onSignOut={this.setUser}></SignOut>
+  </div>
       }
-      return (
-        <div>
-          { mainDiv }
-        </div>
-      ) 
+  //user clicked Clash button
+  if(this.state.clash){
+    mainDiv = <div className="clash-page">
+    <CodeClanClash />
+  </div>
+      }
+
+
+  return (
+    <div>
+      { mainDiv }
+    </div>
+    ) 
   }
 }
 

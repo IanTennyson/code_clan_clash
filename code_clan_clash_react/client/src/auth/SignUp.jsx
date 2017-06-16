@@ -15,7 +15,7 @@ class SignUp extends React.Component {
       password:"", 
       passwordConfirmation:"",
       userName:"",
-      eightBitMan: null,
+      eightBitManError: null
     }
   }
 
@@ -51,9 +51,9 @@ class SignUp extends React.Component {
         request2.send(JSON.stringify(data2));
       }
       if (request.status === 422){
-        console.log(request.response)
+        console.log("You have hit a 422", request.response)
         
-        this.setState({eightBitMan: request.responseText})
+        this.setState({eightBitManError: request.response})
       }
     }
     const data = {
@@ -67,22 +67,18 @@ class SignUp extends React.Component {
   }
 
   handleOnChangeEmail(event) {
-    this.setState({eightBitMan: "Your email must be unique!"})
     this.setState({email: event.target.value})
   }
 
   handleOnChangePassword(event) {
-    this.setState({eightBitMan: "Your password must be at least 8 characters long"})
     this.setState({password: event.target.value})
   }
 
   handleOnChangePassConf(event) {
-    this.setState({eightBitMan: "This must match your original password"})
     this.setState({passwordConfirmation: event.target.value})
   }
 
   handleUsername(event){
-    this.setState({eightBitMan: "Keep your username clean please!"})
     this.setState({userName: event.target.value})
   }
 
@@ -106,7 +102,7 @@ class SignUp extends React.Component {
 
         <button onClick={this.signUp}>  Sign Up </button>
 
-        {this.state.eightBitMan ? <EightBitMan speech={this.state.eightBitMan} errors={this.state.eightBitMan} /> : null }
+        {this.state.eightBitManError ? <EightBitMan error={this.state.eightBitManError} /> : null }
 
       </form>
     )

@@ -1,7 +1,20 @@
-import React from "react"
+import React from 'react'
 
-const EightBitMan = (props) => <h4>{props.speech}</h4>
+class EightBitMan extends React.Component {
 
-// props.response.keys(errors).forEach((type) => {console.log(type + " errors =") ;errors[type].forEach((message) => console.log(message))})
+  render(){
+    const jsonError = this.props.error
+    const errorObj = JSON.parse(jsonError).errors;
+    let chat = Object.keys(errorObj).map((type, index) => {
+      return <li key={index}>{type}: {errorObj[type][0]} </li>
+    });
 
-export default EightBitMan;
+  return(
+      <ul>
+        {chat}
+      </ul>
+    )
+  }
+}
+
+export default EightBitMan
