@@ -25,23 +25,20 @@ class GameBox extends React.Component {
     this.addToCharArray = this.addToCharArray.bind(this)
     this.submitFinishedWord = this.submitFinishedWord.bind(this)
     this.spaceBar = this.spaceBar.bind(this)
+    this.backspace = this.backspace.bind(this)
   }
 
-//Will need to find a way to call this before the game starts
-//For now I will hard code the currentWord to Ruby
-
   newUserInput(usersInput){
-    console.log("usersInput", usersInput)
-    //USER HAS TYPED A SPACE
-
+    const gameLetters = this.state.gameCharArray;
+    const letterIndex = this.state.gameCharLetterIndex;
     //USER HAS CORRECTLY TYPED THE DESIRED LETTER
-    if(usersInput === this.state.gameCharArray[this.state.gameCharLetterIndex]){
-      console.log(usersInput, " === ", this.state.gameCharArray[this.state.gameCharLetterIndex])
+    if(usersInput === gameLetters[letterIndex]){
+      console.log(usersInput, " === ", gameLetters[letterIndex])
       this.state.gameCharLetterIndex++
       this.state.userCharArray.push(usersInput)
       return;
     }else if //USER HAS TYPED THE WRONG CHARACTER
-    (usersInput !== this.state.gameCharArray[this.state.gameCharLetterIndex]){
+    (usersInput !== gameLetters[letterIndex]){
       this.state.gameCharLetterIndex++
       this.state.userCharArray.push(usersInput)
       return;
@@ -49,10 +46,26 @@ class GameBox extends React.Component {
   }
 
   spaceBar(){
+    //USER HAS TYPED A SPACE
       this.submitFinishedWord();
       this.state.currentWordIndex++
       this.setCurrentWord();
       return;
+  }
+
+  //USER TYPES "A"
+  //"A" GETS PUSHED INTO userCharArray REGARDLESS OF IT BEING RIGHT OR WRONG
+  //
+
+
+  backspace(){
+    this.state.userCharArray.pop()
+    if(this.state.gameCharLetterIndex === 0){
+      this.state.currentWordIndex--;
+      this.setCurrentWord();
+      console.log(this.state.currentWord)
+    };
+    this.state.gameCharLetterIndex--
   }
 
   setCurrentWord(){
@@ -60,23 +73,19 @@ class GameBox extends React.Component {
     this.state.gameCharArray = this.state.currentWord.split("")
   }
 
+//CURRENTLY NOT BEING USED, IS IT FASTER?
   addToCharArray(userInput){
     this.state.userCharArray.push(usersInput)
-    console.log("NEW CHAR ARRAY",this.state.userCharArray)
   }
 
   submitFinishedWord(){
     const usersCompletedWord = this.state.userCharArray.join("")
-    console.log("User Current Word", usersCompletedWord)
-    console.log("Game Current Word",this.state.currentWord)
     if(usersCompletedWord === this.state.currentWord){
     this.state.correctUserWords.push(usersCompletedWord)
-      //NEED TO FIGURE OUT HOW TO SET THE CLASS OF THE SPAN!
       //SET SPAN CLASS TO CORRECT
       console.log("CORRECT!")
     }else{
     this.state.incorrectUserWords.push(usersCompletedWord)
-
       //SET SPAN CLASS TO INCORRECT
       console.log("WRONG!")
     }
@@ -91,6 +100,7 @@ class GameBox extends React.Component {
           <Words words={this.state.wordsArray}/>
           <UserInput 
           spaceBar={this.spaceBar} 
+          triggerBackspace={this.backspace}
           letterInput={this.newUserInput} 
           prepareGame={this.setCurrentWord} />
         </div>

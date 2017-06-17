@@ -4,18 +4,24 @@ class UserInput extends React.Component {
 
   render(){
     return(
-      <input 
+      <input
       className="user-input-box" 
-      placeholder="Type to begin" 
+      placeholder="Type to begin"
+      onClick={this.props.prepareGame}
       onKeyUp={this.triggerInput.bind(this)}
-      onClick={this.props.prepareGame}></input>
+      ></input>
     )
   }
 
   triggerInput(event){
     const newChar = event.target.value.slice(-1)
+    if(event.keyCode === 8){
+      this.props.triggerBackspace()
+      return;
+    }
     if(newChar === " "){
       this.props.spaceBar()
+      return;
     }else{
     this.props.letterInput(newChar)
     }
