@@ -17,8 +17,7 @@ class GameBox extends React.Component {
       gameStarted: false,
       //USER STATE
       userCharArray: [],
-      correctUserWords: [],
-      incorrectUserWords: [],
+      finishedUserWords: []
     }
     this.newUserInput = this.newUserInput.bind(this)
     this.setCurrentWord = this.setCurrentWord.bind(this)
@@ -28,42 +27,30 @@ class GameBox extends React.Component {
     this.backspace = this.backspace.bind(this)
   }
 
+  //USER HAS TYPED A LETTER
   newUserInput(usersInput){
-    const gameLetters = this.state.gameCharArray;
-    const letterIndex = this.state.gameCharLetterIndex;
-    //USER HAS CORRECTLY TYPED THE DESIRED LETTER
-    if(usersInput === gameLetters[letterIndex]){
-      console.log(usersInput, " === ", gameLetters[letterIndex])
       this.state.gameCharLetterIndex++
       this.state.userCharArray.push(usersInput)
-      return;
-    }else if //USER HAS TYPED THE WRONG CHARACTER
-    (usersInput !== gameLetters[letterIndex]){
-      this.state.gameCharLetterIndex++
-      this.state.userCharArray.push(usersInput)
-      return;
-    }
   }
 
   spaceBar(){
-    //USER HAS TYPED A SPACE
       this.submitFinishedWord();
       this.state.currentWordIndex++
       this.setCurrentWord();
       return;
   }
 
-  //USER TYPES "A"
-  //"A" GETS PUSHED INTO userCharArray REGARDLESS OF IT BEING RIGHT OR WRONG
-  //
-
-
   backspace(){
     this.state.userCharArray.pop()
+
     if(this.state.gameCharLetterIndex === 0){
       this.state.currentWordIndex--;
       this.setCurrentWord();
-      console.log(this.state.currentWord)
+      const previsoulyAttemptedWord = this.state.finishedUserWords.pop()
+
+      this.state.userCharArray = (previsoulyAttemptedWord.split(""))
+      this.state.gameCharLetterIndex = previsoulyAttemptedWord.length
+      return;
     };
     this.state.gameCharLetterIndex--
   }
@@ -81,11 +68,11 @@ class GameBox extends React.Component {
   submitFinishedWord(){
     const usersCompletedWord = this.state.userCharArray.join("")
     if(usersCompletedWord === this.state.currentWord){
-    this.state.correctUserWords.push(usersCompletedWord)
+    this.state.finishedUserWords.push(usersCompletedWord)
       //SET SPAN CLASS TO CORRECT
       console.log("CORRECT!")
     }else{
-    this.state.incorrectUserWords.push(usersCompletedWord)
+    this.state.finishedUserWords.push(usersCompletedWord)
       //SET SPAN CLASS TO INCORRECT
       console.log("WRONG!")
     }
