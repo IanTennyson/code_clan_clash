@@ -9,47 +9,52 @@ class GameBox extends React.Component {
     super(props);
     this.state = {
       //GAME STATE
-      wordsArray: ["ruby", "java", "javascript", "python"],
+      //The words the user must type
+      wordsArray: ["ruby", "java", "ruby", "java", "ruby", "java", "ruby", "java", "ruby", "java", "ruby", "java",],
+      //The index of the word in the wordsArray
       currentWordIndex: 0,
+      //The current word the user must type
       currentWord: null,
-      gameCharArray: [],
+      //The current word split into an array of letters
+//The game is running to slow so cutting this out for now
+      // gameCharArray: [],
+      //The index of the letters in the currentWord
       gameCharLetterIndex: 0,
-      gameStarted: false,
-      //USER STATE
+      //The letters the user has submitted to form the currentWord
       userCharArray: [],
-      finishedUserWords: []
+      //The words the user has previsouly entered
+      finishedUserWords: [],
+      //Num of words the users has correctly and incorrectly typed
+      correct: 0,
+      incorrect: 0
     }
-    this.newUserInput = this.newUserInput.bind(this)
+    // this.newUserInput = this.newUserInput.bind(this)
     this.setCurrentWord = this.setCurrentWord.bind(this)
-    this.addToCharArray = this.addToCharArray.bind(this)
     this.submitFinishedWord = this.submitFinishedWord.bind(this)
     this.spaceBar = this.spaceBar.bind(this)
     this.backspace = this.backspace.bind(this)
+    console.log("STATE", this.state)
   }
 
-  //USER HAS TYPED A LETTER
-  newUserInput(usersInput){
-      this.state.gameCharLetterIndex++
-      this.state.userCharArray.push(usersInput)
-  }
-
-  spaceBar(){
-      this.submitFinishedWord();
+  spaceBar(userSubmittedWord){
+      this.submitFinishedWord(userSubmittedWord);
       this.state.currentWordIndex++
       this.setCurrentWord();
       return;
   }
 
+//Only problem with backspace is it can't be held. If held it will register 1 click but will delete multiple letters from the user input putting the user out of sync with the game.
   backspace(){
+    console.log("Before",this.state.userCharArray)
     this.state.userCharArray.pop()
+    console.log("after",this.state.userCharArray)
 
     if(this.state.gameCharLetterIndex === 0){
       this.state.currentWordIndex--;
       this.setCurrentWord();
       const previsoulyAttemptedWord = this.state.finishedUserWords.pop()
-
-      this.state.userCharArray = (previsoulyAttemptedWord.split(""))
-      this.state.gameCharLetterIndex = previsoulyAttemptedWord.length
+      this.state.userCharArray = previsoulyAttemptedWord.split("")
+      this.state.gameCharLetterIndex = this.state.currentWord.length
       return;
     };
     this.state.gameCharLetterIndex--
@@ -57,25 +62,18 @@ class GameBox extends React.Component {
 
   setCurrentWord(){
     this.state.currentWord = this.state.wordsArray[this.state.currentWordIndex]
-    this.state.gameCharArray = this.state.currentWord.split("")
   }
 
-//CURRENTLY NOT BEING USED, IS IT FASTER?
-  addToCharArray(userInput){
-    this.state.userCharArray.push(usersInput)
-  }
-
-  submitFinishedWord(){
-    const usersCompletedWord = this.state.userCharArray.join("")
-    if(usersCompletedWord === this.state.currentWord){
-    this.state.finishedUserWords.push(usersCompletedWord)
+  submitFinishedWord(userSubmittedWord){
+    console.log(userSubmittedWord, "===", this.state.currentWord)
+    if(userSubmittedWord === this.state.currentWord){
       //SET SPAN CLASS TO CORRECT
       console.log("CORRECT!")
     }else{
-    this.state.finishedUserWords.push(usersCompletedWord)
       //SET SPAN CLASS TO INCORRECT
-      console.log("WRONG!")
+      console.log("INCORRECT!")
     }
+    this.state.finishedUserWords.push(userSubmittedWord)
     this.state.gameCharLetterIndex = 0
     this.state.userCharArray = []
   }

@@ -20,10 +20,10 @@ class UserInput extends React.Component {
       return;
     }
     if(newChar === " "){
-      this.props.spaceBar()
+      const word = event.target.value.split(" ")
+      const newUserWord = word.slice(-2,-1).pop()
+      this.props.spaceBar(newUserWord)
       return;
-    }else{
-    this.props.letterInput(newChar)
     }
   }
 
