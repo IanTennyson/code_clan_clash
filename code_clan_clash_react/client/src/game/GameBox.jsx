@@ -1,73 +1,80 @@
 import React from 'react'
 import Score from './Score'
 import Words from './Words'
+import ReloadPage from './ReloadPage'
 import UserInput from './UserInput'
+import ProgressBar from './ProgressBar'
+
 // import ProgressBar from './ProgressBar'
 
 class GameBox extends React.Component {
   constructor(props){
     super(props);
     this.state = {
-      //GAME STATE
-      //The words the user must type
-      wordsArray: ["one", "two", "three", "how", "now", "how", "now", "how", "now", "how"],
-      //The index of the word in the wordsArray
+      wordsArray: ["how", "now", "how", "now", "how", "now", "how","now","how", "now", "how", "now", "how", "now", "how","now","how", "now", "how", "now", "how", "now", "how","now","how", "now", "how", "now", "how", "now", "how", "now","how", "now", "how", "now", "how", "now", "how", "now","how", "now", "how", "now", "how", "now", "how", "now","how", "now", "how", "now", "how", "now", "how","now","how", "now", "how", "now", "how", "now", "how","now","how", "now", "how", "now", "how", "now", "how","now","how", "now", "how", "now", "how", "now", "how",],
       currentWordIndex: 0,
-      //The current word the user must type
       currentWord: null,
-      //The current word split into an array of letters
-//The game is running to slow so cutting this out for now
-      // gameCharArray: [],
-      //The index of the letters in the currentWord
       gameCharLetterIndex: 0,
-      //The letters the user has submitted to form the currentWord
-      // userCharArray: [],
-      //The words the user has previsouly entered
-      // finishedUserWords: [],
-      //Num of words the users has correctly and incorrectly typed
       gameStarted: false,
       numberOfUserInputs: 0,
-      indexsOfUncorrectedWords: []
+      indexsOfUncorrectedWords: [],
+      grossWPM: 0,
+      netWPM: 0,
+      startTime: 0.00,
+
     }
-    // this.newUserInput = this.newUserInput.bind(this)
     this.setCurrentWord = this.setCurrentWord.bind(this)
     this.submitFinishedWord = this.submitFinishedWord.bind(this)
     this.spaceBar = this.spaceBar.bind(this)
     this.backspace = this.backspace.bind(this)
     this.startGame = this.startGame.bind(this)
     this.calculateWPM = this.calculateWPM.bind(this)
+    this.stopGame = this.stopGame.bind(this)
+  }
+
+  beginGame(){
+    
   }
 
   startGame(){
+    var counter = 0;
     this.setState({ gameStarted: true })
     console.log("The game has started")
-    setInterval(this.calculateWPM, 5000)
+    const timer = setInterval(function(){
+      console.log("in function")
+      this.calculateWPM()
+      counter++
+      if(counter === 12){
+        clearInterval(timer)
+        this.stopGame()
+      }
+    }.bind(this), 5000)
   }
 
+  stopGame(){
+    console.log("GAME OVER!")
+    this.setState({gameStarted: false})
+    console.log(this.state)
+  }
+
+
   calculateWPM(){
+
     const allUserInput = this.state.numberOfUserInputs
-    const uncorrectedErrors = this.state.indexsOfUncorrectedWords.length //need all the uncorrected words user has typed 
-    const grossWPM = allUserInput / 5
-    console.log("grossWPM", grossWPM)
-    const netWPM = grossWPM - uncorrectedErrors / 1
-    console.log("netWPM", netWPM)
+    const uncorrectedErrors = this.state.indexsOfUncorrectedWords.length
+    const addTime = 0.05
+    const time = (this.state.startTime += addTime).toFixed(2)
+    console.log("Time Passed: ", time)
+
+    const grossWPM = (allUserInput / 5)
+    const predictedGrossWPM = grossWPM / time
+
+    let netWPM = (grossWPM - uncorrectedErrors) / time
+    const roundedGrossWPM = parseInt(predictedGrossWPM)
+    const roundedNetWPM = parseInt(netWPM)
+    this.setState({ grossWPM: roundedGrossWPM, netWPM: roundedNetWPM })
 
 
-
-
-
-
-    // Gross WPM calc = 
-    // all letters (including spaces) typed 
-    //     divided by 5 
-    // divided by 1 (1 meaning 1 min)
-
-    //Net WPM calc = 
-    // all letters (including spaces) typed 
-    //     divided by 5 
-
-    //    -UNCORRECTED Errors
-    // divided by 1 (1 meaning 1 min)
   }
 
   spaceBar(userSubmittedWord){
@@ -78,10 +85,7 @@ class GameBox extends React.Component {
       this.setCurrentWord();
       return;
   }
-
-// 1. Gives an error if you backspace after array is finished but this wont be a problem when finished
-
-// 2. If user succesfully completes a word, presses space and presses backpace, space it comes back as a correct. Be careful to correct this when calculating WPM etc.
+// 1. If user succesfully completes a word, presses space and presses backpace, space it comes back as a correct. Be careful to correct this when calculating WPM etc.
   backspace(allUserText){
     console.log("allUserText",allUserText)
 
@@ -133,7 +137,7 @@ class GameBox extends React.Component {
     return(
       <div>
         <div className="game-box">
-          <Score correct={this.state.correct} incorrect={this.state.incorrect}/>
+          <Score grossWPM={this.state.grossWPM} netWPM={this.state.netWPM}/>
           <Words words={this.state.wordsArray}/>
           <UserInput 
           spaceBar={this.spaceBar} 
@@ -144,9 +148,10 @@ class GameBox extends React.Component {
           hasGameStarted={this.state.gameStarted}
           />
         </div>
-        <div className="progress-bar">
-          
-        </div>
+
+        <ProgressBar hasGameStarted={this.state.gameStarted} />
+
+        <ReloadPage />
       </div>
     )
   }
