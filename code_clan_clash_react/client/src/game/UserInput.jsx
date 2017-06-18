@@ -15,6 +15,7 @@ class UserInput extends React.Component {
   }
 
   triggerStartOfTest(event){
+    if(this.props.hasGameStarted === true)return;
     if(event.keyCode === 13){
     this.props.startTest()
     }
@@ -37,31 +38,6 @@ class UserInput extends React.Component {
     }
 
   }
-
-  // triggerBackspaceRequest(event){
-  //   const allUserText = event.target.value
-  //   if(event.keyCode === 13){
-  //   }
-  //   if(event.keyCode === 8){
-  //     this.props.triggerBackspace(allUserText)
-  //     return;
-  //   }
-  // }
-
-  // startGame(event){
-
-  // }
-
-  // triggerInput(event){
-  //   if(event.keyCode === 8)return;
-  //   const newChar = event.target.value.slice(-1)
-
-
-  //   if(newChar === " "){
-
-  //     return;
-  //   }
-  // }
 
 }
 

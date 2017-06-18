@@ -15,3 +15,8 @@
   width: 100%;
 }
 */
+
+.container {
+  width: 10em;
+  text-align: center;
+}

@@ -4,14 +4,12 @@ import Words from './Words'
 import ReloadPage from './ReloadPage'
 import UserInput from './UserInput'
 import ProgressBar from './ProgressBar'
-
-// import ProgressBar from './ProgressBar'
-
+// length
 class GameBox extends React.Component {
   constructor(props){
     super(props);
     this.state = {
-      wordsArray: ["how", "now", "how", "now", "how", "now", "how","now","how", "now", "how", "now", "how", "now", "how","now","how", "now", "how", "now", "how", "now", "how","now","how", "now", "how", "now", "how", "now", "how", "now","how", "now", "how", "now", "how", "now", "how", "now","how", "now", "how", "now", "how", "now", "how", "now","how", "now", "how", "now", "how", "now", "how","now","how", "now", "how", "now", "how", "now", "how","now","how", "now", "how", "now", "how", "now", "how","now","how", "now", "how", "now", "how", "now", "how",],
+      wordsArray: ["now", "now", "now", "now", "now"],
       currentWordIndex: 0,
       currentWord: null,
       gameCharLetterIndex: 0,
@@ -20,8 +18,7 @@ class GameBox extends React.Component {
       indexsOfUncorrectedWords: [],
       grossWPM: 0,
       netWPM: 0,
-      startTime: 0.00,
-
+      startTime: 0.00
     }
     this.setCurrentWord = this.setCurrentWord.bind(this)
     this.submitFinishedWord = this.submitFinishedWord.bind(this)
@@ -30,16 +27,19 @@ class GameBox extends React.Component {
     this.startGame = this.startGame.bind(this)
     this.calculateWPM = this.calculateWPM.bind(this)
     this.stopGame = this.stopGame.bind(this)
+    this.beginGame = this.beginGame.bind(this)
   }
 
   beginGame(){
-    
+    this.state.gameStarted = true, 
+    this.startGame();
   }
 
   startGame(){
     var counter = 0;
-    this.setState({ gameStarted: true })
+
     console.log("The game has started")
+
     const timer = setInterval(function(){
       console.log("in function")
       this.calculateWPM()
@@ -54,14 +54,13 @@ class GameBox extends React.Component {
   stopGame(){
     console.log("GAME OVER!")
     this.setState({gameStarted: false})
-    console.log(this.state)
   }
 
 
   calculateWPM(){
 
     const allUserInput = this.state.numberOfUserInputs
-    const uncorrectedErrors = this.state.indexsOfUncorrectedWords.length
+    let uncorrectedErrors = this.state.indexsOfUncorrectedWords.length
     const addTime = 0.05
     const time = (this.state.startTime += addTime).toFixed(2)
     console.log("Time Passed: ", time)
@@ -78,6 +77,7 @@ class GameBox extends React.Component {
   }
 
   spaceBar(userSubmittedWord){
+      console.log("userSubmittedWord",userSubmittedWord.length)
       this.state.numberOfUserInputs += userSubmittedWord.length
       console.log("Space Bar", userSubmittedWord)
       this.submitFinishedWord(userSubmittedWord);
@@ -144,7 +144,7 @@ class GameBox extends React.Component {
           triggerBackspace={this.backspace}
           letterInput={this.newUserInput} 
           prepareGame={this.setCurrentWord}
-          startTest={this.startGame} 
+          startTest={this.beginGame} 
           hasGameStarted={this.state.gameStarted}
           />
         </div>
