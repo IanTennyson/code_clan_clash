@@ -8,8 +8,7 @@ class Score extends React.Component {
   render(){
     return(
     <div>
-      <h3>{this.props.correct}</h3>
-      <h3>{this.props.incorrect}</h3>
+      <h4>WPM: {this.props.wpm}</h4>
     </div>
     )
   }

@@ -25,7 +25,9 @@ class GameBox extends React.Component {
       //The words the user has previsouly entered
       // finishedUserWords: [],
       //Num of words the users has correctly and incorrectly typed
-      gameStarted: false
+      gameStarted: false,
+      numberOfUserInputs: 0,
+      indexsOfUncorrectedWords: []
     }
     // this.newUserInput = this.newUserInput.bind(this)
     this.setCurrentWord = this.setCurrentWord.bind(this)
@@ -33,14 +35,43 @@ class GameBox extends React.Component {
     this.spaceBar = this.spaceBar.bind(this)
     this.backspace = this.backspace.bind(this)
     this.startGame = this.startGame.bind(this)
+    this.calculateWPM = this.calculateWPM.bind(this)
   }
 
   startGame(){
     this.setState({ gameStarted: true })
     console.log("The game has started")
+    setInterval(this.calculateWPM, 5000)
+  }
+
+  calculateWPM(){
+    const allUserInput = this.state.numberOfUserInputs
+    const uncorrectedErrors = this.state.indexsOfUncorrectedWords.length //need all the uncorrected words user has typed 
+    const grossWPM = allUserInput / 5
+    console.log("grossWPM", grossWPM)
+    const netWPM = grossWPM - uncorrectedErrors / 1
+    console.log("netWPM", netWPM)
+
+
+
+
+
+
+    // Gross WPM calc = 
+    // all letters (including spaces) typed 
+    //     divided by 5 
+    // divided by 1 (1 meaning 1 min)
+
+    //Net WPM calc = 
+    // all letters (including spaces) typed 
+    //     divided by 5 
+
+    //    -UNCORRECTED Errors
+    // divided by 1 (1 meaning 1 min)
   }
 
   spaceBar(userSubmittedWord){
+      this.state.numberOfUserInputs += userSubmittedWord.length
       console.log("Space Bar", userSubmittedWord)
       this.submitFinishedWord(userSubmittedWord);
       this.state.currentWordIndex++
@@ -58,7 +89,17 @@ class GameBox extends React.Component {
       this.state.currentWordIndex--;
       this.setCurrentWord();
       this.state.gameCharLetterIndex = this.state.currentWord.length
-      console.log("GAMES CURRENT WORD",this.state.currentWord)
+      
+      // console.log("currentWordIndex",this.state.currentWordIndex)
+      // console.log("ALL INCORRECT WORDS INDEXS",this.state.indexsOfUncorrectedWords)
+      // console.log("MOST RECENT INCORRECT WORD INDEX",this.state.indexsOfUncorrectedWords.slice(-1))
+// console.log(this.state.indexsOfUncorrectedWords.slice(-1), "===" ,this.state.currentWordIndex )
+
+
+      if(this.state.indexsOfUncorrectedWords.slice(-1).pop() === this.state.currentWordIndex){
+        console.log("index of wrong word is equal to currentWordIndex")
+        this.state.indexsOfUncorrectedWords.splice(-1, 1)
+      }
       return;
     };
     this.state.gameCharLetterIndex--
@@ -69,6 +110,8 @@ class GameBox extends React.Component {
   }
 
   submitFinishedWord(userSubmittedWord){
+      console.log("CURRENT WORD INDEX", this.state.currentWordIndex)
+
     console.log(userSubmittedWord, "===", this.state.currentWord)
     if(userSubmittedWord === this.state.currentWord){
       //SET SPAN CLASS TO CORRECT
@@ -79,6 +122,8 @@ class GameBox extends React.Component {
     }else{
       //SET SPAN CLASS TO INCORRECT
       console.log("INCORRECT!")
+      this.state.indexsOfUncorrectedWords.push(this.state.currentWordIndex)
+      console.log("indexsOfUncorrectedWords", this.state.indexsOfUncorrectedWords)
     }
     // this.state.finishedUserWords.push(userSubmittedWord)
     this.state.gameCharLetterIndex = 0
