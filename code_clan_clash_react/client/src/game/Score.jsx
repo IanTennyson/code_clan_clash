@@ -1,70 +1,30 @@
-STATE
-wordsArray: ["One", "Two", "Three"],
-//the current word split eg. ["o","n","e"]
-charArray: [],
-//From the wordsArray this will be the current word to type
-currentWord: null,
-//The index of the current word in the array
-currentWordIndex: 0,
-//The index of the current letter in the char array
-charLetterIndex: 0,
+import React from 'react'
 
-//oldUserWords hold the words the user has previsouly typed both correct and incorrect ["one", "twwo"]
-oldUserWords: [],
-//usersCurrentWordAttempt holds the users attempt to reproduce the currentWord
-usersCurrentWordAttempt: "",
-
-// gameStarted will need to tell the clock to start
-gameStarted: false
-
-
-
-
-newUserInput(userInput){
-  setState({gameStarted: true})
-//user has pressed space without entering anything
-  if(userInput === "") return;
-
-//user has pressed space declaring they have finished with a word
-  if(userInput === " "){
-    currentWordIndex++
-    this.setCurrentWord()
-    this.updateCharArray()
-    this.setState({ charLetterIndex: 0 })
-
-    return;
+class Score extends React.Component {
+  constructor(props){
+    super(props)
   }
 
-//how to handle a Backspace request?
-  // if(userInput === keyCode(backspaceKeycode){
-  //   backspaceRequest()
-    
-  // })
-
-
-//user has typed the correct letter
-  if(userInput === charArray[charLetterIndex]){
-    //set the class of the current letters span to correct
-    charLetterIndex++
-  }
-
-  if(userInput !== charArray[charLetterIndex]){
-    //set the class of the current letters span to incorrect
-    charLetterIndex++
+  render(){
+    return(
+    <div>
+      <h3>{this.props.correct}</h3>
+      <h3>{this.props.incorrect}</h3>
+    </div>
+    )
   }
 }
 
-setCurrentWord(){
-  setState({currentWord: wordsArray[currentWordIndex]})
-}
+export default Score
 
-updateCharArray(){
-  this.setState({charArray: []})
-  charArray.push(this.state.currentWord.split())
-}
+// Gross WPM calc = 
+// all letters (including spaces) typed 
+//     divided by 5 
+// divided by 1 (1 meaning 1 min)
 
-// backspaceRequest(){
-  
-//   charLetterIndex--
-// }
+//Net WPM calc = 
+// all letters (including spaces) typed 
+//     divided by 5 
 
+//    -UNCORRECTED Errors
+// divided by 1 (1 meaning 1 min)

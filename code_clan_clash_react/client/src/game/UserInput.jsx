@@ -6,26 +6,62 @@ class UserInput extends React.Component {
     return(
       <input
       className="user-input-box" 
-      placeholder="Type to begin"
+      placeholder="Press Return to Begin"
       onClick={this.props.prepareGame}
-      onKeyUp={this.triggerInput.bind(this)}
+      onKeyDown={this.triggerKeyboardInput.bind(this)}
+      onKeyUp={this.triggerStartOfTest.bind(this)}
       ></input>
     )
   }
 
-  triggerInput(event){
-    const newChar = event.target.value.slice(-1)
-    if(event.keyCode === 8){
-      this.props.triggerBackspace()
-      return;
-    }
-    if(newChar === " "){
-      const word = event.target.value.split(" ")
-      const newUserWord = word.slice(-2,-1).pop()
-      this.props.spaceBar(newUserWord)
-      return;
+  triggerStartOfTest(event){
+    if(event.keyCode === 13){
+    this.props.startTest()
     }
   }
+
+  triggerKeyboardInput(event){
+    while (this.props.hasGameStarted === false) return;
+    const allUserText = event.target.value
+    const word = event.target.value.split(" ")
+    const newUserWord = word.slice(-1).pop()
+
+    switch(event.keyCode){
+      case 32:
+        this.props.spaceBar(newUserWord)
+        break;
+      case 8:
+        this.props.triggerBackspace(allUserText)
+        break;
+ 
+    }
+
+  }
+
+  // triggerBackspaceRequest(event){
+  //   const allUserText = event.target.value
+  //   if(event.keyCode === 13){
+  //   }
+  //   if(event.keyCode === 8){
+  //     this.props.triggerBackspace(allUserText)
+  //     return;
+  //   }
+  // }
+
+  // startGame(event){
+
+  // }
+
+  // triggerInput(event){
+  //   if(event.keyCode === 8)return;
+  //   const newChar = event.target.value.slice(-1)
+
+
+  //   if(newChar === " "){
+
+  //     return;
+  //   }
+  // }
 
 }
 
