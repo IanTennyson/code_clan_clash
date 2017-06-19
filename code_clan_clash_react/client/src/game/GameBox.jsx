@@ -20,18 +20,18 @@ class GameBox extends React.Component {
       netWPM: 0,
       startTime: 0.00
     }
-    this.setCurrentWord = this.setCurrentWord.bind(this)
     this.submitFinishedWord = this.submitFinishedWord.bind(this)
-    this.spaceBar = this.spaceBar.bind(this)
+    this.setCurrentWord = this.setCurrentWord.bind(this)
+    this.calculateWPM = this.calculateWPM.bind(this)
     this.backspace = this.backspace.bind(this)
     this.startGame = this.startGame.bind(this)
-    this.calculateWPM = this.calculateWPM.bind(this)
+    this.spaceBar = this.spaceBar.bind(this)
     this.stopGame = this.stopGame.bind(this)
     this.beginGame = this.beginGame.bind(this)
   }
 
   beginGame(){
-    this.state.gameStarted = true, 
+    this.setState({gameStarted: true}) 
     this.startGame();
   }
 
@@ -40,20 +40,21 @@ class GameBox extends React.Component {
 
     console.log("The game has started")
 
-    const timer = setInterval(function(){
-      console.log("in function")
+    const timer = setInterval(() => {
       this.calculateWPM()
       counter++
       if(counter === 12){
         clearInterval(timer)
         this.stopGame()
       }
-    }.bind(this), 5000)
+    }, 5000)
   }
 
   stopGame(){
     console.log("GAME OVER!")
     this.setState({gameStarted: false})
+    //Need to reset the progress bar
+    //need to reset the "time" currently if the game is restarted it will continue from 60 seconds
   }
 
 
@@ -71,28 +72,32 @@ class GameBox extends React.Component {
     let netWPM = (grossWPM - uncorrectedErrors) / time
     const roundedGrossWPM = parseInt(predictedGrossWPM)
     const roundedNetWPM = parseInt(netWPM)
+
+
+
+    //Why is this re-running my gameStarted state?!
+    //Do I need to use ShoudComponentUpdate?
     this.setState({ grossWPM: roundedGrossWPM, netWPM: roundedNetWPM })
-
-
   }
 
   spaceBar(userSubmittedWord){
-      console.log("userSubmittedWord",userSubmittedWord.length)
+      console.log("userSubmittedWord Length",userSubmittedWord.length)
       this.state.numberOfUserInputs += userSubmittedWord.length
-      console.log("Space Bar", userSubmittedWord)
       this.submitFinishedWord(userSubmittedWord);
       this.state.currentWordIndex++
       this.setCurrentWord();
       return;
   }
-// 1. If user succesfully completes a word, presses space and presses backpace, space it comes back as a correct. Be careful to correct this when calculating WPM etc.
+// 1. If user succesfully completes a word, presses space and presses backpace, space it comes back as a correct. Need to test if this will mess with the WPM score.
   backspace(allUserText){
     console.log("allUserText",allUserText)
 
     if(allUserText.slice(-1) === " "){
       this.state.currentWordIndex--;
       this.setCurrentWord();
+      console.log("CURRENT WORD: ", this.state.currentWord)
       this.state.gameCharLetterIndex = this.state.currentWord.length
+      console.log("gameCharLetterIndex", this.state.gameCharLetterIndex)
       
       // console.log("currentWordIndex",this.state.currentWordIndex)
       // console.log("ALL INCORRECT WORDS INDEXS",this.state.indexsOfUncorrectedWords)
@@ -120,9 +125,6 @@ class GameBox extends React.Component {
     if(userSubmittedWord === this.state.currentWord){
       //SET SPAN CLASS TO CORRECT
       console.log("CORRECT!")
-
-      // this.setState(this.state.correct)
-
     }else{
       //SET SPAN CLASS TO INCORRECT
       console.log("INCORRECT!")
