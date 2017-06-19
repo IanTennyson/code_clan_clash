@@ -20,3 +20,27 @@
   width: 10em;
   text-align: center;
 }
+
+.mapped-word {
+  border: 1px solid black;
+}
+
+.span {
+  border: 1px solid red;
+}
+
+.correct {
+  color: green;
+}
+
+.incorrect {
+  color: tomato;
+}
+
+.nextword {
+  color: pink;
+}
+
+.currentword {
+  color: dodgerblue;
+}
