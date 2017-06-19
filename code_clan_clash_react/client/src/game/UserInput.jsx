@@ -25,7 +25,7 @@ class UserInput extends React.Component {
     while (this.props.hasGameStarted === false) return;
     const allUserText = event.target.value
     const word = event.target.value.split(" ")
-    const newUserWord = word.slice(-1)
+    const newUserWord = word.slice(-1).pop()
 
     switch(event.keyCode){
       case 32:

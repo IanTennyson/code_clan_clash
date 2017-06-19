@@ -11,16 +11,40 @@ class GameBox extends React.Component {
     this.state = {
       // wordsArray: ["now", "now", "now", "now", "now"],
       wordsArrayObj: [
-      {value: "first", status: "nextword"},
-      {value: "new", status: "nextword"},
-      {value: "new", status: "nextword"},
-      {value: "new", status: "nextword"},
-      {value: "new", status: "nextword"},
+      {value: "single", status: "nextword"},
+      {value: "responsibility", status: "nextword"},
+      {value: "principle", status: "nextword"},
+      {value: "states", status: "nextword"},
+      {value: "that", status: "nextword"},
+      {value: "every", status: "nextword"},
+      {value: "module", status: "nextword"},
+      {value: "or", status: "nextword"},
+      {value: "class", status: "nextword"},
+      {value: "should", status: "nextword"},
+      {value: "have", status: "nextword"},
+      {value: "responsibility", status: "nextword"},
+      {value: "over", status: "nextword"},
+      {value: "a", status: "nextword"},
+      {value: "single", status: "nextword"},
+      {value: "part", status: "nextword"},
+      {value: "of", status: "nextword"},
+      {value: "the", status: "nextword"},
+      {value: "functionality", status: "nextword"},
+      {value: "provided", status: "nextword"},
+      {value: "by", status: "nextword"},
+      {value: "the", status: "nextword"},
+      {value: "software", status: "nextword"},
+      {value: "and", status: "nextword"},
+      {value: "that", status: "nextword"},
+      {value: "responsibility", status: "nextword"},
+      {value: "should", status: "nextword"},
+      {value: "be", status: "nextword"},
+      {value: "entirely", status: "nextword"},
+      {value: "encapsulated", status: "nextword"},
+      {value: "by", status: "nextword"},
+      {value: "the", status: "nextword"},
+      {value: "class", status: "nextword"},
       ],
-
-      // [{value: "new", status: "currentword"},]
-
-
       currentWordIndex: 0,
       currentWord: null,
       gameStarted: false,
@@ -79,11 +103,12 @@ class GameBox extends React.Component {
 
     const allUserInput = this.state.numberOfUserInputs
     let uncorrectedErrors = this.state.indexsOfUncorrectedWords.length
-    const addTime = 0.01
-    const time = (this.state.startTime += addTime).toFixed(2)
+    // const addTime = 0.01
+    // const time = (this.state.startTime += addTime).toFixed(2)
 
     const grossWPM = (allUserInput / 5)
-    const predictedGrossWPM = grossWPM / time
+    // console.log("allUserInput", allUserInput)
+    const predictedGrossWPM = grossWPM / 1
 
     let netWPM = (grossWPM - uncorrectedErrors) / 1
     const roundedGrossWPM = parseInt(predictedGrossWPM)
@@ -101,14 +126,12 @@ class GameBox extends React.Component {
   }
 
   backspace(allUserText){
-    console.log("allUserText",allUserText)
-
     if(allUserText.slice(-1) === " "){
       this.updateClassName('nextword')
       this.state.currentWordIndex--;
       this.setCurrentWord();
 
-      if(this.state.indexsOfUncorrectedWords.slice(-1).pop() === this.state.currentWordIndex){
+      if(this.state.indexsOfUncorrectedWords.slice(-1) === this.state.currentWordIndex){
         console.log("index of wrong word is equal to currentWordIndex")
         this.state.indexsOfUncorrectedWords.splice(-1, 1)
       }
@@ -130,7 +153,7 @@ class GameBox extends React.Component {
   }
 
   submitFinishedWord(userSubmittedWord){
-    if(userSubmittedWord.pop() === this.state.currentWord ){
+    if(userSubmittedWord === this.state.currentWord ){
       this.updateClassName('correct')
       console.log("CORRECT!")
     }else{

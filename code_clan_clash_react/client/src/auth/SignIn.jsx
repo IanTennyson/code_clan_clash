@@ -60,7 +60,8 @@ class SignIn extends React.Component {
     return (
       <form  className='login-form' >
         <input type="text" onChange={this.handleOnChangeEmail}  placeholder="Email" />
-        <input type="password" onChange={this.handleOnChangePassword}  placeholder="Password" />
+        <input type="password" onChange={this.handleOnChangePassword}  placeholder="Password" id="password-input"/>
+    
         <button onClick={this.signIn}>  Sign In </button>
         {this.state.eightBitManError ? <EightBitMan error={this.state.eightBitManError} /> : null }
 

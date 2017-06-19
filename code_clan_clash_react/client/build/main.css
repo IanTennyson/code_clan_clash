@@ -1,4 +1,4 @@
-/*body {
+body {
   background: url('/codeclanclashfinished.png');
   background-size: cover;
   background-repeat: no-repeat;
@@ -10,35 +10,36 @@
 .header-div {
   text-align: center;
   font-family: Fipps-Regular;
+
   background-color: tomato;
   border: 1px solid black;
   width: 100%;
 }
-*/
 
-.container {
+
+/*.container {
   width: 10em;
   text-align: center;
-}
-
+}*/
+/*
 .mapped-word {
   border: 1px solid black;
-}
-
+}*/
+/*
 .span {
   border: 1px solid red;
-}
+}*/
 
 .correct {
   color: green;
-}
+  }
 
 .incorrect {
   color: tomato;
 }
 
 .nextword {
-  color: pink;
+  color: black;
 }
 
 .currentword {
