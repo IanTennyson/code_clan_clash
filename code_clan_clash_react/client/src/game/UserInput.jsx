@@ -1,4 +1,5 @@
 import React from 'react'
+import TypeWriter from '../components/TypeWriter'
 
 class UserInput extends React.Component {
 
@@ -8,7 +9,7 @@ class UserInput extends React.Component {
       className="user-input-box" 
       placeholder="Press Return to Begin"
       onClick={this.props.prepareGame}
-      onKeyDown={this.triggerKeyboardInput.bind(this)}
+      onKeyDown={this.triggerKeyboardInput.bind(this), <TypeWriter />}
       onKeyUp={this.triggerStartOfTest.bind(this)}
       ></input>
     )

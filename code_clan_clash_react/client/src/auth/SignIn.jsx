@@ -39,12 +39,11 @@ class SignIn extends React.Component {
 
       if(request.status === 401){
         console.log("response",request.responseText)
-      }
-
-      if(request.status === 422){
-        console.log("request.response", request.response)
+        console.log("response AHHHH",request.response)
         this.setState({eightBitManError: request.response})
       }
+
+ 
 
     }
     const data = {
@@ -63,7 +62,7 @@ class SignIn extends React.Component {
         <input type="password" onChange={this.handleOnChangePassword}  placeholder="Password" id="password-input"/>
     
         <button onClick={this.signIn}>  Sign In </button>
-        {this.state.eightBitManError ? <EightBitMan error={this.state.eightBitManError} /> : null }
+        {this.state.eightBitManError ? <EightBitMan singleError={this.state.eightBitManError} /> : null }
 
       </form>
       

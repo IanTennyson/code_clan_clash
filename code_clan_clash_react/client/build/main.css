@@ -1,5 +1,6 @@
 body {
-  background: url('/codeclanclashfinished.png');
+
+  /*background: url('/codeclanclashfinished.png');*/
   background-size: cover;
   background-repeat: no-repeat;
   position: absolute;
@@ -44,4 +45,48 @@ body {
 
 .currentword {
   color: dodgerblue;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
 }
+
+
+
+
+
+
+/*SPEECH BUBBLE*/
+.speech-bubble {
+  display: flex;
+
+  > * {
+    margin: 10px;
+  }
+}
+
+.speech {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  width: 200px;
+  height: 50px;
+  background: #CD486B;
+  border-radius: 10px;
+  color: #FFF;
+  font-weight: 300;
+  letter-spacing: 1px;
+  overflow: hidden;
+}
+
+.speech::before {
+  position: absolute;
+  top: 48px;
+  left: 30px;
+  content: '';
+  border-top: 12px solid #CD486B;
+  border-left: 12px solid transparent;
+  border-right: 12px solid transparent;
+}
+  /*END OF SPEECH BUBBLE*/
+
