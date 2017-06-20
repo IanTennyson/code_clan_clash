@@ -6,16 +6,16 @@ html, body, div, span, applet, object, iframe, h2, h3, h4, h5, h6, p, blockquote
     font-size: 100%;
     vertical-align: baseline;
     background: transparent;
+    font-family: PressStart2P;
 }
 
-body, html {
+body, html{
   height: 100%;
   margin: 0;
 }
 
 
-/*MAIN PAGE IMAGE*/
-.main {
+.all {
   display: flex;
   background: url('./codeclanclashfinished.png');
   height: 100vh;
@@ -27,7 +27,7 @@ body, html {
 
 /*CLASH PAGE IMAGE*/
 .clash-page {
-  /*background: url('./classroomfinished.png');*/
+  background: url('./classroomfinished.png');
   height: 100vh;
   background-position: center;
   background-repeat: no-repeat;
@@ -45,7 +45,7 @@ h1 {
   font-family: Fipps-Regular;
   /*border: 1px solid black;*/
   width: 100%;
-
+  font-size: 3.4em;
   flex: 1;
 }
 
@@ -60,43 +60,75 @@ h1 {
   justify-content: space-between;
 }
 
+.nav-page {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+}
+
 .log-in {
   display: flex;
   width: 100%;
   justify-content: space-between;
 }
 
-/*SIGN IN BUTTON*/
 .sign-in-button {
-  font-family: PressStart2P;
   background: none;
   text-align: center;
-  /*border: 1px solid black;*/
-  /*flex-basis: 35%*/
-  /*height: 80px;*/
-  font-size: 1.2em;
+  font-size: 1.6em;
   width: 50%;
+}
+
+.sign-in-button:hover {
+  color: #FFF;
+  font-size: 1.8em;
 }
 
 .sign-up-button {
-  font-family: PressStart2P;
   background:none;
   text-align: center;
-  /*border: 1px solid black;*/
-  /*flex-basis: 60%*/
-  /*height: 80px;*/
-  font-size: 1.2em;
+  font-size: 1.6em;
   width: 50%;
 }
 
+.sign-up-button:hover {
+  color: #FFF;
+  font-size: 1.8em;
 
+}
 
+.clash-button {
+  background: none;
+  text-align: center;
+  font-size: 1.6em;
+  width: 50%;
+  /*color: #FFF;*/
 
+}
 
+.clash-button:hover {
+  font-size: 1.8em;
+  color: black;
+}
 
+.sign-out-div {
+  display: flex;
+  width: 50%;
+  justify-content: space-between;
+}
 
+.sign-out-button {
+  background:none;
+  text-align: center;
+  font-size: 1.6em;
+  width: 100%;
+ /* color: #FFF;*/
+}
 
-
+.sign-out-button:hover {
+  font-size: 1.8em;
+  color: black;
+}
 
 .progress-bar {
   width: 10em;

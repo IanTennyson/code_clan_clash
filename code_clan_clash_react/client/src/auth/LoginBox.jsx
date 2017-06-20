@@ -1,8 +1,9 @@
 import React from 'react'
-import SignIn from './SignIn'
-import SignUp from './SignUp' 
+
 import SignOut from './SignOut'
 import CodeClanClash from '../components/CodeClanClash'
+import PopUpBox from '../components/PopUpBox'
+import Header from '../components/Header'
 
 class LoginBox extends React.Component {
 
@@ -15,8 +16,7 @@ class LoginBox extends React.Component {
       currentUser: null,
       username: null,
       clash: false,
-      signin: "Sign Up",
-      enrol: "Register"
+      url: "http://localhost:5000/"
     }
     this.displaySignIn = this.displaySignIn.bind(this);
     this.displaySignUp = this.displaySignUp.bind(this);
@@ -33,7 +33,7 @@ class LoginBox extends React.Component {
   fetchUser(){
     // console.log('Checking if user has a cookie!');
     const request = new XMLHttpRequest();
-    request.open("GET", this.props.url + "users.json");
+    request.open("GET", this.state.url + "users.json");
     request.withCredentials = true;
     request.onload = () => {
       if(request.status === 200){
@@ -81,22 +81,47 @@ class LoginBox extends React.Component {
 
   render () {
 //No user signed in
-var mainDiv = <div className="log-in">
-  <button onClick={this.displaySignIn} className="sign-in-button">{this.state.signin}</button>
-  
-  <button onClick={this.displaySignUp} className="sign-up-button">{this.state.enrol}</button>
-    {this.state.showSignIn ?
-      <SignIn url={this.props.url + "users/sign_in.json"} onSignIn={this.setUser}></SignIn> : null }
 
-    {this.state.showSignUp ? <SignUp url={this.props.url + "users.json"} onSignUp={this.setUser}></SignUp> : null }
-      </div>
+var mainDiv =   
+<div className="all" >
+  <Header className='header' header={"<h1> Code Clan Clash </h1>"} />
+  <div className="log-in" id="app">
+    <div className="buttons">
+      <button onClick={this.displaySignIn} className="sign-in-button">Sign In</button>
+      <button onClick={this.displaySignUp} className="sign-up-button">Register</button>
+    </div>
+    {this.state.showSignIn ?
+      <PopUpBox 
+      showSignIn={this.state.showSignIn} 
+      url={this.state.url + "users/sign_in.json"} 
+      onClosed={()=> { this.setState({ showSignIn: false, showSignUp: false})} } 
+      onSignIn={this.setUser}/> : null }
+
+      
+    {this.state.showSignUp ? 
+      <PopUpBox 
+      showSignUp={this.state.showSignUp} 
+      url={this.state.url + "users.json"} 
+      // onClosed={()=> { this.setState({ showSignIn: false, showSignUp: false})} } 
+      onSignUp={this.setUser}/> : null }
+  
+    </div>
+  </div>
+
+
 //User is signed in on NAV page
   if(this.state.currentUser){
-    mainDiv = <div className="nav-page">
-    <h4> Welcome {this.state.currentUser.userName}</h4>
-    <button className="clash-button" onClick={this.clashButton}>Clash</button>
-    <SignOut url={this.props.url + "users/sign_out.json"} onSignOut={this.setUser}></SignOut>
-  </div>
+    
+    mainDiv = 
+    <div className="all" >
+      <div className="nav-page">
+        <Header className='header' header={"<h1> Code Clan Clash </h1>"} />
+          <div className="buttons-two">
+            <button className="clash-button" onClick={this.clashButton}>Clash</button>
+            <SignOut url={this.state.url + "users/sign_out.json"} onSignOut={this.setUser}></SignOut>
+          </div>
+      </div>
+    </div>
       }
   //user clicked Clash button
   if(this.state.clash){
@@ -108,7 +133,9 @@ var mainDiv = <div className="log-in">
 
   return (
     <div className="test">
-      { mainDiv }
+      <div className="second-test">
+        { mainDiv }
+      </div>
     </div>
     ) 
   }

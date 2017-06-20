@@ -38,8 +38,6 @@ class SignIn extends React.Component {
       }
 
       if(request.status === 401){
-        console.log("response",request.responseText)
-        console.log("response AHHHH",request.response)
         this.setState({eightBitManError: request.response})
       }
 
@@ -52,6 +50,7 @@ class SignIn extends React.Component {
         password: this.state.password
       }
     }
+    console.log('sent!')
     request.send(JSON.stringify(data));
   }
   
@@ -59,9 +58,12 @@ class SignIn extends React.Component {
     return (
       <form  className='login-form' >
         <input type="text" onChange={this.handleOnChangeEmail}  placeholder="Email" />
+        <br/>
+        <br/>
         <input type="password" onChange={this.handleOnChangePassword}  placeholder="Password" id="password-input"/>
-    
-        <button onClick={this.signIn}>  Sign In </button>
+        <br/>
+        <br/>
+        <button className="pop-box-sign-in-button" onClick={this.signIn}>  Sign In </button>
         {this.state.eightBitManError ? <EightBitMan singleError={this.state.eightBitManError} /> : null }
 
       </form>
