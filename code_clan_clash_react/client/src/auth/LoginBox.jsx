@@ -14,7 +14,9 @@ class LoginBox extends React.Component {
       showSignUp: false,
       currentUser: null,
       username: null,
-      clash: false
+      clash: false,
+      signin: "Sign Up",
+      enrol: "Register"
     }
     this.displaySignIn = this.displaySignIn.bind(this);
     this.displaySignUp = this.displaySignUp.bind(this);
@@ -80,8 +82,9 @@ class LoginBox extends React.Component {
   render () {
 //No user signed in
 var mainDiv = <div className="log-in">
-  <button onClick={this.displaySignIn}>Sign In</button>
-  <button onClick={this.displaySignUp}>Sign Up</button>
+  <button onClick={this.displaySignIn} className="sign-in-button">{this.state.signin}</button>
+  
+  <button onClick={this.displaySignUp} className="sign-up-button">{this.state.enrol}</button>
     {this.state.showSignIn ?
       <SignIn url={this.props.url + "users/sign_in.json"} onSignIn={this.setUser}></SignIn> : null }
 
@@ -104,7 +107,7 @@ var mainDiv = <div className="log-in">
 
 
   return (
-    <div>
+    <div className="test">
       { mainDiv }
     </div>
     ) 

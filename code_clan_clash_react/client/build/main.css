@@ -1,20 +1,113 @@
-body {
+html, body, div, span, applet, object, iframe, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, caption, button {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    outline: 0;
+    font-size: 100%;
+    vertical-align: baseline;
+    background: transparent;
+}
 
-  /*background: url('/codeclanclashfinished.png');*/
-  background-size: cover;
+body, html {
+  height: 100%;
+  margin: 0;
+}
+
+
+/*MAIN PAGE IMAGE*/
+.main {
+  display: flex;
+  background: url('./codeclanclashfinished.png');
+  height: 100vh;
+  background-position: center;
   background-repeat: no-repeat;
-  position: absolute;
-  width: 80em;
-  height: 80%;
+  background-size: cover;
+  flex-direction: column;
+}
+
+/*CLASH PAGE IMAGE*/
+.clash-page {
+  /*background: url('./classroomfinished.png');*/
+  height: 100vh;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 .header-div {
+  height: 25%;
   text-align: center;
-  font-family: Fipps-Regular;
+  vertical-align: center;
+}
 
-  background-color: tomato;
-  border: 1px solid black;
+/*CODE CLAN CLASH HEADER*/
+h1 {
+  font-family: Fipps-Regular;
+  /*border: 1px solid black;*/
   width: 100%;
+
+  flex: 1;
+}
+
+.test {
+  position: absolute;
+  left: 23%;
+  right: 23%;
+  width: 54%;
+  height: 80px;
+  top: 300px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.log-in {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+}
+
+/*SIGN IN BUTTON*/
+.sign-in-button {
+  font-family: PressStart2P;
+  background: none;
+  text-align: center;
+  /*border: 1px solid black;*/
+  /*flex-basis: 35%*/
+  /*height: 80px;*/
+  font-size: 1.2em;
+  width: 50%;
+}
+
+.sign-up-button {
+  font-family: PressStart2P;
+  background:none;
+  text-align: center;
+  /*border: 1px solid black;*/
+  /*flex-basis: 60%*/
+  /*height: 80px;*/
+  font-size: 1.2em;
+  width: 50%;
+}
+
+
+
+
+
+
+
+
+
+
+.progress-bar {
+  width: 10em;
+}
+
+.words-div{
+  border: 1px solid black;
+}
+
+.game-screen {
+  border: 1px dashed red;
 }
 
 
@@ -22,14 +115,14 @@ body {
   width: 10em;
   text-align: center;
 }*/
-/*
+
 .mapped-word {
   border: 1px solid black;
-}*/
-/*
+}
+
 .span {
   border: 1px solid red;
-}*/
+}
 
 .correct {
   color: green;
@@ -45,9 +138,7 @@ body {
 
 .currentword {
   color: dodgerblue;
-  width: 100%;
-  justify-content: center;
-  align-items: center;
+
 }
 
 
@@ -56,7 +147,7 @@ body {
 
 
 /*SPEECH BUBBLE*/
-.speech-bubble {
+/*.speech-bubble {
   display: flex;
 
   > * {
@@ -87,6 +178,6 @@ body {
   border-top: 12px solid #CD486B;
   border-left: 12px solid transparent;
   border-right: 12px solid transparent;
-}
+}*/
   /*END OF SPEECH BUBBLE*/
 

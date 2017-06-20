@@ -100,7 +100,7 @@ class SignUp extends React.Component {
         <input type="victory" onChange={this.handleVictory}  placeholder="Enter your Victory Msg" />
         <input type="defeat" onChange={this.handleDefeat}  placeholder="Enter your Defeat Msg" />
 
-        <button onClick={this.signUp}>  Sign Up </button>
+        <button onClick={this.signUp}>  Register </button>
 
         {this.state.eightBitManError ? <EightBitMan error={this.state.eightBitManError} /> : null }
 

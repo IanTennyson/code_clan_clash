@@ -6,7 +6,6 @@ class Clash extends React.Component {
   render(){
     return(
       <GameBox />
-      // <ProgressBar />
     )
   }
 }

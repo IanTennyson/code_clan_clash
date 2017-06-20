@@ -84,9 +84,12 @@ class GameBox extends React.Component {
     const timer = setInterval(() => {
       this.calculateWPM()
       counter++
-      if(counter === 120){
+      if(counter === 120){//120
         clearInterval(timer)
         this.stopGame()
+        console.log(counter)
+        counter = 0;
+        console.log(counter)
       }
     }, 500)
   }
@@ -103,11 +106,10 @@ class GameBox extends React.Component {
 
     const allUserInput = this.state.numberOfUserInputs
     let uncorrectedErrors = this.state.indexsOfUncorrectedWords.length
-    // const addTime = 0.01
-    // const time = (this.state.startTime += addTime).toFixed(2)
 
+    
+   
     const grossWPM = (allUserInput / 5)
-    // console.log("allUserInput", allUserInput)
     const predictedGrossWPM = grossWPM / 1
 
     let netWPM = (grossWPM - uncorrectedErrors) / 1
@@ -132,7 +134,6 @@ class GameBox extends React.Component {
       this.setCurrentWord();
 
       if(this.state.indexsOfUncorrectedWords.slice(-1) === this.state.currentWordIndex){
-        console.log("index of wrong word is equal to currentWordIndex")
         this.state.indexsOfUncorrectedWords.splice(-1, 1)
       }
       return;
@@ -155,24 +156,34 @@ class GameBox extends React.Component {
   submitFinishedWord(userSubmittedWord){
     if(userSubmittedWord === this.state.currentWord ){
       this.updateClassName('correct')
-      console.log("CORRECT!")
     }else{
       this.updateClassName('incorrect')
-      console.log("INCORRECT!")
       this.state.indexsOfUncorrectedWords.push(this.state.currentWordIndex)
       console.log("indexsOfUncorrectedWords", this.state.indexsOfUncorrectedWords)
     }
   }
 
   render(){
-    const pageDiv = 
-      <div className="master-game-div">
-        <Score grossWPM={this.state.grossWPM} netWPM={this.state.netWPM}/>
+    let pageDiv = 
+      <div className="words-div">
         <Words 
         words={this.state.wordsArrayObj} 
-        
         currentWordIndex={this.state.currentWordIndex}
         indexsOfUncorrectedWords={this.state.indexsOfUncorrectedWords}/>
+      </div>
+
+    if(this.state.gameOver){
+      pageDiv = 
+      <div className="game-over-div">
+        <h1> GAME OVER </h1>
+        <ReloadPage />
+      </div>
+    }
+
+    let gameScreen =  
+      <div className="game-screen">
+        <Score grossWPM={this.state.grossWPM} netWPM={this.state.netWPM}/>
+        {pageDiv}
         <UserInput 
         spaceBar={this.spaceBar} 
         triggerBackspace={this.backspace}
@@ -181,14 +192,16 @@ class GameBox extends React.Component {
         startTest={this.beginGame} 
         hasGameStarted={this.state.gameStarted}
         />
-        <ProgressBar hasGameStarted={this.state.gameStarted} />
-        <ReloadPage />
+        <ProgressBar className="progress-bar" hasGameStarted={this.state.gameStarted} />
+        
       </div>
 
 
+
+
     return(
-      <div>
-        {pageDiv}
+      <div className="class-room">
+        {gameScreen}
       </div>
     )
   }
