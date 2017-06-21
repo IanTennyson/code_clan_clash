@@ -1,5 +1,8 @@
 import React from 'react'
 
+import io from 'socket.io-client';
+
+
 import SignOut from './SignOut'
 import CodeClanClash from '../components/CodeClanClash'
 import PopUpBox from '../components/PopUpBox'
@@ -16,16 +19,27 @@ class LoginBox extends React.Component {
       currentUser: null,
       username: null,
       clash: false,
-      url: "http://localhost:5000/"
+      url: "http://localhost:5000/",
+      users: []
     }
     this.displaySignIn = this.displaySignIn.bind(this);
     this.displaySignUp = this.displaySignUp.bind(this);
     this.clashButton = this.clashButton.bind(this);
+
+    this.socket = io("http://localhost:3000");
+    this.socket.on('joined', (users) => {
+        console.log("joined");
+        this.setState({users: users});
+    });
   }
 
   setUser(user){
     // console.log("user before set:", this.state.currentUser)
-    this.setState({currentUser:user})
+    this.setState({currentUser:user}, () => {
+      if(this.state.user !== null) {
+        this.socket.emit("joined", this.state.username);
+      }
+    });
     // console.log("user after set:", this.state.currentUser)
 
   }
@@ -126,7 +140,7 @@ var mainDiv =
   //user clicked Clash button
   if(this.state.clash){
     mainDiv = <div className="clash-page">
-    <CodeClanClash />
+    <CodeClanClash user={this.state.currentUser} socket={this.socket} users={this.state.users} />
   </div>
       }
 

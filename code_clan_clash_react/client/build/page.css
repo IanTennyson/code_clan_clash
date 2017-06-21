@@ -28,7 +28,7 @@ h1 {
   font-family: Fipps-Regular;
   /*border: 1px solid black;*/
   width: 100%;
-  font-size: 3.4em;
+  font-size: 3.1em;
   flex: 1;
 }
 
@@ -261,10 +261,10 @@ input, textarea {
 .mapped-word {
   position: absolute;
   border: none;
-  top: 20px;
+  top: 15px;
   left: 318px;
   height: 284px;
-  line-height: 20px;
+  line-height: 25px;
   width: 50.2%;
   text-align: center;
   vertical-align: center;
@@ -279,4 +279,7 @@ input, textarea {
   height: 284px;
   width: 50.2%;
 }
+
+
+
 

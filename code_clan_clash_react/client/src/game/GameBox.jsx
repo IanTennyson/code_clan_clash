@@ -4,6 +4,7 @@ import Words from './Words'
 import ReloadPage from './ReloadPage'
 import UserInput from './UserInput'
 import ProgressBar from './ProgressBar'
+import io from 'socket.io-client';
 // length
 class GameBox extends React.Component {
   constructor(props){
@@ -68,9 +69,6 @@ class GameBox extends React.Component {
     this.componentWillUpdate = this.componentWillUpdate.bind(this)
   }
 
-
-
-
   beginGame(){
     this.setState({gameStarted: true}) 
     this.startGame();
@@ -96,6 +94,9 @@ class GameBox extends React.Component {
   }
 
 
+
+
+
   calculateWPM(){
     const allUserInput = this.state.numberOfUserInputs
     let uncorrectedErrors = this.state.indexsOfUncorrectedWords.length
@@ -104,8 +105,30 @@ class GameBox extends React.Component {
     let netWPM = (grossWPM - uncorrectedErrors) / 1
     // const roundedGrossWPM = parseInt(predictedGrossWPM)
     const roundedNetWPM = parseInt(netWPM)
-    this.setState({ netWPM: roundedNetWPM })
+
+    //instead of setting state i should send a emit to io
+
+    this.props.socket.emit('typed', {
+      user: this.props.user,
+      wpm: roundedNetWPM
+    })
+    // this.setState({ netWPM: roundedNetWPM })
   }
+
+
+
+
+
+  // updateScores(wpm){
+  //   let userWpm = this.props.users.wpm;
+
+  //   this.setState({
+  //     userWpm: wpm
+  //   });
+  // }
+
+
+
 
   spaceBar(userSubmittedWord){
       this.state.numberOfUserInputs += userSubmittedWord.length
@@ -167,11 +190,17 @@ class GameBox extends React.Component {
       </div>
     }
 
-
+    let users = this.props.users.map((user) => {
+      console.log(user);
+      return <div key={user.id}>
+        <li>{user.user}</li>
+        <li>{user.wpm}</li>
+      </div>
+    });
 
     let gameScreen =  
       <div className="game-screen">
-        <Score grossWPM={this.state.grossWPM} netWPM={this.state.netWPM}/>
+        
         {pageDiv}
         <UserInput 
         spaceBar={this.spaceBar} 
@@ -191,6 +220,7 @@ class GameBox extends React.Component {
 
     return(
       <div className="class-room">
+        <ul>{users}</ul>
         {gameScreen}
       </div>
     )

@@ -5,7 +5,7 @@ import GameBox from '../game/GameBox'
 class Clash extends React.Component {
   render(){
     return(
-      <GameBox />
+      <GameBox user={this.props.user} socket={this.props.socket} users={this.props.users} />
     )
   }
 }
