@@ -94,7 +94,6 @@ h1 {
 .sign-up-button:hover {
   color: #FFF;
   font-size: 1.8em;
-
 }
 
 .clash-button {
@@ -132,6 +131,7 @@ h1 {
 
 .progress-bar {
   width: 10em;
+  top: 4em;
 }
 
 .words-div{

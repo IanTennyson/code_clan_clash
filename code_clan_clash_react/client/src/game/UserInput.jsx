@@ -2,9 +2,17 @@ import React from 'react'
 import TypeWriter from '../components/TypeWriter'
 
 class UserInput extends React.Component {
+  constructor(props){
+    super(props)
+    this.state = {
+      url: '../audio/main.mp3',
+    }
+  }
 
   render(){
+
     return(
+      <div>
       <input
       className="user-input-box" 
       placeholder="Press Return to Begin"
@@ -12,8 +20,11 @@ class UserInput extends React.Component {
       onKeyDown={this.triggerKeyboardInput.bind(this)}
       onKeyUp={this.triggerStartOfTest.bind(this)}
       ></input>
+     
+      </div>
     )
   }
+
 
   triggerStartOfTest(event){
     if(this.props.hasGameStarted === true)return;
@@ -31,6 +42,7 @@ class UserInput extends React.Component {
     switch(event.keyCode){
       case 32:
         this.props.spaceBar(newUserWord)
+
         break;
       case 8:
         this.props.triggerBackspace(allUserText)
@@ -43,3 +55,5 @@ class UserInput extends React.Component {
 }
 
 export default UserInput
+
+// <TypeWriter url={this.state.url} />

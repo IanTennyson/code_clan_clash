@@ -1,4 +1,4 @@
-html, body, div, span, applet, object, iframe, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, caption, button {
+html, body, div, applet, object, iframe, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, caption, button {
     margin: 0;
     padding: 0;
     border: 0;
@@ -9,7 +9,11 @@ html, body, div, span, applet, object, iframe, h2, h3, h4, h5, h6, p, blockquote
     font-family: PressStart2P;
 }
 
-body, html{
+input:focus {
+    outline:none;
+}
+
+body, html, .clash-page {
   height: 100vh;
   margin: 0;
 }
@@ -179,5 +183,100 @@ form {
 
 input, textarea {
   font-family: PressStart2P;
+}
+
+.mapped-word {
+  border: 1px solid black;
+}
+
+.span {
+  border: 1px solid red;
+}
+
+.correct {
+  color: green;
+  }
+
+.incorrect {
+  color: tomato;
+}
+
+.nextword {
+  color: black;
+}
+
+.currentword {
+  color: #FFF;
+  background-color: tomato;
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+.clash-page {
+  background: url('./classroomfinished.png');
+  height: 100vh;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  display: flex;
+}
+
+.user-input-box {
+  position: absolute;
+  height: 200px;
+  width: 435px;
+  top: 320px;
+  left: 421px;
+  font-size: 1em;
+  border-style: none;
+  text-align: center;
+  background-color: #F3F4F6;
+}
+
+.progress-bar {
+  position: absolute;
+  top: 70px;
+  left: 60px;
+  width: 10em;
+}
+
+.wpm {
+  position: absolute;
+  text-align: center;
+  top: 126px;
+  left: 61px;
+  width: 10em;
+}
+
+.mapped-word {
+  position: absolute;
+  border: none;
+  top: 20px;
+  left: 318px;
+  height: 284px;
+  line-height: 20px;
+  width: 50.2%;
+  text-align: center;
+  vertical-align: center;
+  word-wrap: break-word;
+  font-size: 1.2em;
+}
+
+.game-over-div {
+  text-align: center;
+  position: absolute;
+  left: 318px;
+  height: 284px;
+  width: 50.2%;
 }
 

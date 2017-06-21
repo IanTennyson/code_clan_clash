@@ -78,45 +78,33 @@ class GameBox extends React.Component {
 
   startGame(){
     var counter = 0;
-
     console.log("The game has started")
 
     const timer = setInterval(() => {
       this.calculateWPM()
       counter++
-      if(counter === 120){//120
+      if(counter === 120){
         clearInterval(timer)
         this.stopGame()
-        console.log(counter)
         counter = 0;
-        console.log(counter)
       }
     }, 500)
   }
 
   stopGame(){
-    console.log("GAME OVER!")
     this.setState({gameStarted: false, gameOver: true})
-    //Need to reset the progress bar
-    //need to reset the "time" currently if the game is restarted it will continue from 60 seconds
   }
 
 
   calculateWPM(){
-
     const allUserInput = this.state.numberOfUserInputs
     let uncorrectedErrors = this.state.indexsOfUncorrectedWords.length
-
-    
-   
     const grossWPM = (allUserInput / 5)
-    const predictedGrossWPM = grossWPM / 1
-
+    // const predictedGrossWPM = grossWPM / 1
     let netWPM = (grossWPM - uncorrectedErrors) / 1
-    const roundedGrossWPM = parseInt(predictedGrossWPM)
+    // const roundedGrossWPM = parseInt(predictedGrossWPM)
     const roundedNetWPM = parseInt(netWPM)
-
-    this.setState({ grossWPM: roundedGrossWPM, netWPM: roundedNetWPM })
+    this.setState({ netWPM: roundedNetWPM })
   }
 
   spaceBar(userSubmittedWord){
@@ -159,7 +147,6 @@ class GameBox extends React.Component {
     }else{
       this.updateClassName('incorrect')
       this.state.indexsOfUncorrectedWords.push(this.state.currentWordIndex)
-      console.log("indexsOfUncorrectedWords", this.state.indexsOfUncorrectedWords)
     }
   }
 
@@ -180,6 +167,8 @@ class GameBox extends React.Component {
       </div>
     }
 
+
+
     let gameScreen =  
       <div className="game-screen">
         <Score grossWPM={this.state.grossWPM} netWPM={this.state.netWPM}/>
@@ -192,9 +181,10 @@ class GameBox extends React.Component {
         startTest={this.beginGame} 
         hasGameStarted={this.state.gameStarted}
         />
-        <ProgressBar className="progress-bar" hasGameStarted={this.state.gameStarted} />
+        <ProgressBar className="progress-bar" wpm={this.state.netWPM} hasGameStarted={this.state.gameStarted} />
         
       </div>
+
 
 
 

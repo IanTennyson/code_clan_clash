@@ -1,6 +1,7 @@
 const ProgressBar = require('progressbar.js')
 
 import React from 'react'
+import Score from './Score'
 
 class MyProgressBar extends React.Component {
 
@@ -27,18 +28,25 @@ class MyProgressBar extends React.Component {
   progressBar(container) {
     const bar = new ProgressBar.Circle(container, {
       color: '#aaa',
-      strokeWidth: 4,
-      trailWidth: 2,
+      strokeWidth: 14,
+      trailWidth: 14,
       duration: 60000,
       text: {
         autoStyleContainer: false
       },
-      from: { color: '#aaa', width: 1 },
-      to: { color: '#333', width: 4 },
+      from: { color: '#aaa', width: 14 },
+      to: { color: '#333', width: 14 },
     // Set default step function for all animate calls
       step(state, circle) {
         circle.path.setAttribute('stroke', state.color);
         circle.path.setAttribute('stroke-width', state.width);
+
+        // var value = Math.round(circle.value() * {this.props.wpm}); CAN I PUT MY WPM IN HERE?
+        // if (value === 0) {
+        //   circle.setText('WPM');
+        // } else {
+        //   circle.setText(value);
+        // }
       }
     });
 // bar.text.style.fontFamily = '"Raleway", Helvetica, sans-serif';
@@ -49,3 +57,5 @@ class MyProgressBar extends React.Component {
 }
 
 export default MyProgressBar;
+
+
