@@ -7,6 +7,6 @@ class TypeWriter extends React.Component {
   }
 
   render() {
-    return <Sound {...props.url} />;
+    return <Sound url={'main.mp3'} />;
   }
 }

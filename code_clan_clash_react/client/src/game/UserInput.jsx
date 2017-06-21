@@ -13,6 +13,7 @@ class UserInput extends React.Component {
 
     return(
       <div>
+    
       <input
       className="user-input-box" 
       placeholder="Press Return to Begin"

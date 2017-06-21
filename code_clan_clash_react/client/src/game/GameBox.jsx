@@ -10,8 +10,24 @@ class GameBox extends React.Component {
   constructor(props){
     super(props);
     this.state = {
-      // wordsArray: ["now", "now", "now", "now", "now"],
       wordsArrayObj: [
+      {value: "the", status: "nextword"},
+      {value: "open", status: "nextword"},
+      {value: "closed", status: "nextword"},
+      {value: "principle", status: "nextword"},
+      {value: "states", status: "nextword"},
+      {value: "that", status: "nextword"},
+      {value: "software", status: "nextword"},
+      {value: "entities", status: "nextword"},
+      {value: "should", status: "nextword"},
+      {value: "be", status: "nextword"},
+      {value: "open", status: "nextword"},
+      {value: "for", status: "nextword"},
+      {value: "extension", status: "nextword"},
+      {value: "but", status: "nextword"},
+      {value: "closed", status: "nextword"},
+      {value: "for", status: "nextword"},
+      {value: "modification", status: "nextword"},
       {value: "single", status: "nextword"},
       {value: "responsibility", status: "nextword"},
       {value: "principle", status: "nextword"},
@@ -44,7 +60,7 @@ class GameBox extends React.Component {
       {value: "encapsulated", status: "nextword"},
       {value: "by", status: "nextword"},
       {value: "the", status: "nextword"},
-      {value: "class", status: "nextword"},
+      {value: "class", status: "nextword"}
       ],
       currentWordIndex: 0,
       currentWord: null,
@@ -70,6 +86,7 @@ class GameBox extends React.Component {
   }
 
   beginGame(){
+    console.log("this.props.users.length", this.props.users.length)
     this.setState({gameStarted: true}) 
     this.startGame();
   }
@@ -77,11 +94,10 @@ class GameBox extends React.Component {
   startGame(){
     var counter = 0;
     console.log("The game has started")
-
     const timer = setInterval(() => {
       this.calculateWPM()
       counter++
-      if(counter === 120){
+      if(counter === 10){
         clearInterval(timer)
         this.stopGame()
         counter = 0;
@@ -93,42 +109,18 @@ class GameBox extends React.Component {
     this.setState({gameStarted: false, gameOver: true})
   }
 
-
-
-
-
   calculateWPM(){
     const allUserInput = this.state.numberOfUserInputs
     let uncorrectedErrors = this.state.indexsOfUncorrectedWords.length
     const grossWPM = (allUserInput / 5)
-    // const predictedGrossWPM = grossWPM / 1
     let netWPM = (grossWPM - uncorrectedErrors) / 1
-    // const roundedGrossWPM = parseInt(predictedGrossWPM)
     const roundedNetWPM = parseInt(netWPM)
-
-    //instead of setting state i should send a emit to io
 
     this.props.socket.emit('typed', {
       user: this.props.user,
       wpm: roundedNetWPM
     })
-    // this.setState({ netWPM: roundedNetWPM })
   }
-
-
-
-
-
-  // updateScores(wpm){
-  //   let userWpm = this.props.users.wpm;
-
-  //   this.setState({
-  //     userWpm: wpm
-  //   });
-  // }
-
-
-
 
   spaceBar(userSubmittedWord){
       this.state.numberOfUserInputs += userSubmittedWord.length
@@ -149,7 +141,6 @@ class GameBox extends React.Component {
       }
       return;
     };
-
   }
 
   setCurrentWord(){
@@ -192,7 +183,7 @@ class GameBox extends React.Component {
 
     let users = this.props.users.map((user) => {
       console.log(user);
-      return <div key={user.id}>
+      return <div className="all-users-div" key={user.id}>
         <li>{user.user}</li>
         <li>{user.wpm}</li>
       </div>
@@ -213,10 +204,6 @@ class GameBox extends React.Component {
         <ProgressBar className="progress-bar" wpm={this.state.netWPM} hasGameStarted={this.state.gameStarted} />
         
       </div>
-
-
-
-
 
     return(
       <div className="class-room">

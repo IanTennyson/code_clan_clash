@@ -12,9 +12,9 @@ class EightBitMan extends React.Component {
   return(
     <div className="speech-bubble">
       <div className="speech">
-      <ul>
-        {chat[0]}
-      </ul>
+        <ul>
+          {chat[0]}
+        </ul>
       </div>
     </div>
     )

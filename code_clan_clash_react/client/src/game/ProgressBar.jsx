@@ -28,14 +28,14 @@ class MyProgressBar extends React.Component {
   progressBar(container) {
     const bar = new ProgressBar.Circle(container, {
       color: '#aaa',
-      strokeWidth: 14,
-      trailWidth: 14,
+      strokeWidth: 20,
+      trailWidth: 20,
       duration: 60000,
       text: {
         autoStyleContainer: false
       },
-      from: { color: '#aaa', width: 14 },
-      to: { color: '#333', width: 14 },
+      from: { color: '#aaa', width: 20 },
+      to: { color: '#333', width: 20 },
     // Set default step function for all animate calls
       step(state, circle) {
         circle.path.setAttribute('stroke', state.color);

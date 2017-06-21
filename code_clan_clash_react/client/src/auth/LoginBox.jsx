@@ -29,6 +29,8 @@ class LoginBox extends React.Component {
     this.socket = io("http://localhost:3000");
     this.socket.on('joined', (users) => {
         console.log("joined");
+        console.log("users", users)
+        if(users.user === null)return; //WHA!?
         this.setState({users: users});
     });
   }
@@ -98,7 +100,7 @@ class LoginBox extends React.Component {
 
 var mainDiv =   
 <div className="all" >
-  <Header className='header' header={"<h1> Code Clan Clash </h1>"} />
+  <Header className='header' startTag="Where " keyword="friends" endTag=" colleagues come to Clash" header={"<h1> Code Clan Clash </h1>"} />
   <div className="log-in" id="app">
     <div className="buttons">
       <button onClick={this.displaySignIn} className="sign-in-button">Sign In</button>
@@ -129,7 +131,7 @@ var mainDiv =
     mainDiv = 
     <div className="all" >
       <div className="nav-page">
-        <Header className='header' header={"<h1> Code Clan Clash </h1>"} />
+        <Header className='header' header={"<h1> Code Clan Clash </h1>"} startTag="Where " keyword="friends" endTag=" colleagues come to Clash" />
           <div className="buttons-two">
             <button className="clash-button" onClick={this.clashButton}>Clash</button>
             <SignOut url={this.state.url + "users/sign_out.json"} onSignOut={this.setUser}></SignOut>

@@ -105,12 +105,6 @@ class SignUp extends React.Component {
         <input type="username" onChange={this.handleUsername}  placeholder="Enter your Username" />
         <br/>
         <br/>
-        <input type="victory" onChange={this.handleVictory}  placeholder="Enter your Victory Msg" />
-        <br/>
-        <br/>
-        <input type="defeat" onChange={this.handleDefeat}  placeholder="Enter your Defeat Msg" />
-        <br/>
-        <br/>
         <button className="pop-box-sign-up-button" onClick={this.signUp}>  Register </button>
 
         {this.state.eightBitManError ? <EightBitMan error={this.state.eightBitManError} /> : null }
