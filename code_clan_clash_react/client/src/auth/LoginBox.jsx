@@ -1,8 +1,5 @@
 import React from 'react'
-
 import io from 'socket.io-client';
-
-
 import SignOut from './SignOut'
 import CodeClanClash from '../components/CodeClanClash'
 import PopUpBox from '../components/PopUpBox'
@@ -28,8 +25,6 @@ class LoginBox extends React.Component {
 
     this.socket = io("http://localhost:3000");
     this.socket.on('joined', (users) => {
-        console.log("joined");
-        console.log("users", users)
         if(users.user === null)return; //WHA!?
         this.setState({users: users});
     });

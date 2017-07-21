@@ -17,6 +17,7 @@ class MyProgressBar extends React.Component {
       this.progressBar(container);
       this.setState({running: true});
     }
+
   }
 
   render(){
@@ -26,7 +27,7 @@ class MyProgressBar extends React.Component {
   }
 
   progressBar(container) {
-    const bar = new ProgressBar.Circle(container, {
+    var bar = new ProgressBar.Circle(container, {
       color: '#aaa',
       strokeWidth: 20,
       trailWidth: 20,
@@ -36,24 +37,17 @@ class MyProgressBar extends React.Component {
       },
       from: { color: '#aaa', width: 20 },
       to: { color: '#333', width: 20 },
-    // Set default step function for all animate calls
+
       step(state, circle) {
         circle.path.setAttribute('stroke', state.color);
         circle.path.setAttribute('stroke-width', state.width);
 
-        // var value = Math.round(circle.value() * {this.props.wpm}); CAN I PUT MY WPM IN HERE?
-        // if (value === 0) {
-        //   circle.setText('WPM');
-        // } else {
-        //   circle.setText(value);
-        // }
       }
     });
-// bar.text.style.fontFamily = '"Raleway", Helvetica, sans-serif';
-// bar.text.style.fontSize = '2rem';
 
     bar.animate(1.0);  // Number from 0.0 to 1.0
   }
+
 }
 
 export default MyProgressBar;
